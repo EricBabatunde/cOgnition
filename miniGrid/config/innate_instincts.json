@@ -1,0 +1,28 @@
+{
+  "innate_rules": [
+    {
+      "rule_id": "wall_blocking",
+      "premise": "InFront(Wall)",
+      "conclusion": "Forbid(MOVE_FORWARD)",
+      "confidence": 1.0
+    },
+    {
+      "rule_id": "goal_priority",
+      "premise": "SeeInFOV(GoalChest)",
+      "conclusion": "SetPriorityTarget(GoalChest)",
+      "confidence": 0.95
+    },
+    {
+      "rule_id": "locked_door_requires_key",
+      "premise": "InFront(Door) AND IsLocked(Door)",
+      "conclusion": "RequiresItem(MatchingKey)",
+      "confidence": 0.90
+    },
+    {
+      "rule_id": "hazard_avoidance",
+      "premise": "InFront(Hazard)",
+      "conclusion": "Forbid(MOVE_FORWARD)",
+      "confidence": 1.0
+    }
+  ]
+}
