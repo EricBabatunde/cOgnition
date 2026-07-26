@@ -1,0 +1,16 @@
+# Base Environment & Gym
+gymnasium>=0.29.1
+minigrid>=2.3.0
+numpy>=1.24.0
+
+# Subsystem A: Fast Plasticity Memory (In-RAM Indexing)
+faiss-cpu>=1.7.4
+
+# Subsystem B: Symbolic Logic Engine (First-Order / SMT Solvers)
+z3-solver>=4.12.0
+
+# Subsystem C: Core Knowledge Matrix (Graph Analytics)
+networkx>=3.1
+
+# Subsystem D: Metacognitive Supervisor & Async Loop
+typing-extensions>=4.8.0
