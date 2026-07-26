@@ -189,6 +189,8 @@ def main() -> int:
                     
                 elif isinstance(action_or_quit, Action):
                     action = action_or_quit
+                    prev_pos = tuple(ps["position"])
+
                     obs, reward, terminated, truncated, info = env.step(action)
                     ps = obs["player_state"]
                     step_count = info["step_count"]
@@ -199,21 +201,34 @@ def main() -> int:
                     dir_label = _DIR_SYMBOL.get(Direction(direction), "?")
                     hp = ps["health"]
 
-                    log_parts = [
-                        f"[bold]{action.name}[/bold]",
-                        f"→ ({pos[0]},{pos[1]}) {dir_label}",
-                        f"HP:{hp}",
-                    ]
+                    # Detect wall collision: MOVE_FORWARD but position unchanged
+                    wall_blocked = (
+                        action == Action.MOVE_FORWARD
+                        and tuple(pos) == prev_pos
+                    )
 
-                    if reward != -0.1:
-                        log_parts.append(
-                            f"[bold yellow]R={reward:+.1f}[/bold yellow]"
+                    if wall_blocked:
+                        dash.add_log(
+                            f"Action: [bold]{action.name}[/bold]"
+                            f" | Reward: {reward:.1f}"
+                            f" | [bold red]Wall Blocked[/bold red]"
                         )
+                    else:
+                        log_parts = [
+                            f"[bold]{action.name}[/bold]",
+                            f"→ ({pos[0]},{pos[1]}) {dir_label}",
+                            f"HP:{hp}",
+                        ]
 
-                    if ps["inventory"]:
-                        log_parts.append(f"🎒 {ps['inventory']}")
+                        if reward != -0.1:
+                            log_parts.append(
+                                f"[bold yellow]R={reward:+.1f}[/bold yellow]"
+                            )
 
-                    dash.add_log("  ".join(log_parts))
+                        if ps["inventory"]:
+                            log_parts.append(f"🎒 {ps['inventory']}")
+
+                        dash.add_log("  ".join(log_parts))
 
                     # ── Detect special events ──
                     if terminated and hp > 0:
