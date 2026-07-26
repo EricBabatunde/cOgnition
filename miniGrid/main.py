@@ -3,7 +3,8 @@
 main.py — Interactive Turn-Based Execution Loop
 =================================================
 Provides keyboard-driven manual teleop control of the Custom RPG
-Environment with real-time Rich terminal dashboard rendering.
+Environment with real-time Rich terminal dashboard rendering and
+dynamic CoreKnowledgeMatrix world-model updates.
 
 Controls:
     W / ↑       Move Forward
@@ -24,13 +25,17 @@ import sys
 import termios
 import time
 import tty
-from typing import Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
+import numpy as np
 from rich.console import Console
 from rich.live import Live
 
+from cognitive.core_graph import CoreKnowledgeMatrix
 from environment import Action, CustomRPGEnv, Direction
+from environment.entities import FOG, TileType
 from ui.terminal_dashboard import TerminalDashboard
+from ui.web_inspector import WebMindInspector
 
 
 # ──────────────────────────────────────────────
@@ -39,19 +44,18 @@ from ui.terminal_dashboard import TerminalDashboard
 
 def set_raw_mode(fd: int) -> list:
     """Set the terminal to non-canonical (cbreak) mode with no echo.
-    
+
     Returns:
         The original termios settings to be restored later.
     """
     old_settings = termios.tcgetattr(fd)
-    # setcbreak is similar to raw but handles signals like Ctrl-C better
     tty.setcbreak(fd)
-    
+
     # Explicitly turn off ECHO if setcbreak didn't
     new_settings = termios.tcgetattr(fd)
     new_settings[3] &= ~termios.ECHO
     termios.tcsetattr(fd, termios.TCSADRAIN, new_settings)
-    
+
     return old_settings
 
 
@@ -61,10 +65,10 @@ def set_raw_mode(fd: int) -> list:
 
 def get_action_key(fd: int, timeout: float = 0.02) -> Optional[Union[Action, str]]:
     """Poll stdin for a valid action key or arrow sequence.
-    
+
     Reads up to 32 bytes to handle escape sequences. Discards mouse/scroll
     events and unrecognized ANSI codes.
-    
+
     Returns:
         Action enum, 'QUIT' string, or None if no valid input.
     """
@@ -80,17 +84,14 @@ def get_action_key(fd: int, timeout: float = 0.02) -> Optional[Union[Action, str
         return None
 
     # Filter out mouse and trackpad scroll sequences
-    # \x1b[M is X10 mouse, \x1b[< is SGR mouse, \x1b[35 and 36 are scroll events
-    if (data.startswith(b'\x1b[M') or 
-        data.startswith(b'\x1b[<') or 
-        data.startswith(b'\x1b[35') or 
+    if (data.startswith(b'\x1b[M') or
+        data.startswith(b'\x1b[<') or
+        data.startswith(b'\x1b[35') or
         data.startswith(b'\x1b[36')):
-        # Flush any remaining bytes from stdin buffer
         while select.select([fd], [], [], 0.0)[0]:
             os.read(fd, 1024)
         return None
 
-    # Decode string for easier parsing of standard keys
     try:
         s = data.decode('utf-8', errors='ignore')
     except Exception:
@@ -107,9 +108,8 @@ def get_action_key(fd: int, timeout: float = 0.02) -> Optional[Union[Action, str
     if s == '\x1b[C':
         return Action.TURN_RIGHT
 
-    # Check first character for standard bindings
     ch = s[0]
-    
+
     if ch in ('w', 'W'):
         return Action.MOVE_FORWARD
     if ch in ('a', 'A'):
@@ -120,7 +120,7 @@ def get_action_key(fd: int, timeout: float = 0.02) -> Optional[Union[Action, str
         return Action.PICK_UP
     if ch == ' ':
         return Action.TOGGLE_INTERACT
-    if ch in ('q', 'Q', '\x03'):  # \x03 is Ctrl-C
+    if ch in ('q', 'Q', '\x03'):
         return 'QUIT'
 
     return None
@@ -137,6 +137,120 @@ _DIR_SYMBOL: dict[Direction, str] = {
     Direction.WEST:  "◄ W",
 }
 
+# ──────────────────────────────────────────────
+# TileType → entity type string mapping
+# ──────────────────────────────────────────────
+
+_TILE_ENTITY_TYPE: Dict[int, str] = {
+    TileType.KEY:    "KEY",
+    TileType.DOOR:   "DOOR",
+    TileType.HAZARD: "HAZARD",
+    TileType.GOAL:   "GOAL",
+}
+
+_TILE_ENTITY_PREFIX: Dict[int, str] = {
+    TileType.KEY:    "Key",
+    TileType.DOOR:   "Door",
+    TileType.HAZARD: "Hazard",
+    TileType.GOAL:   "Goal",
+}
+
+
+# ──────────────────────────────────────────────
+# Perception-to-Graph Helper
+# ──────────────────────────────────────────────
+
+def update_knowledge_from_obs(
+    matrix: CoreKnowledgeMatrix,
+    obs: Dict[str, Any],
+    prev_pos: Optional[Tuple[int, int]] = None,
+) -> None:
+    """Synchronise the knowledge graph with the latest observation.
+
+    Grounds the agent's current position, explored FOV tiles,
+    visible entities, and inventory into the ``CoreKnowledgeMatrix``.
+
+    Args:
+        matrix:   The knowledge graph to update.
+        obs:      Observation dict from ``CustomRPGEnv``.
+        prev_pos: Player position before the latest step (for
+                  topological edge creation). ``None`` on reset.
+    """
+    ps = obs["player_state"]
+    px, py = ps["position"]
+    full_grid: np.ndarray = obs["full_grid"]
+
+    # ── 1. Current position spatial node ──
+    matrix.add_spatial_node(px, py, "EMPTY", explored=True)
+
+    # ── 2. Topological edge from previous position ──
+    if prev_pos is not None and prev_pos != (px, py):
+        prev_r, prev_c = prev_pos
+        matrix.add_spatial_node(prev_r, prev_c, "EMPTY", explored=True)
+        src = f"Tile_{prev_r}_{prev_c}"
+        dst = f"Tile_{px}_{py}"
+        # Bidirectional connectivity
+        matrix.add_typed_edge(src, dst, "CONNECTS_TO")
+        matrix.add_typed_edge(dst, src, "CONNECTS_TO")
+
+    # ── 3. FOV grounding from full_grid (explored tiles) ──
+    rows, cols = full_grid.shape
+    for r in range(rows):
+        for c in range(cols):
+            tile_val = int(full_grid[r, c])
+            if tile_val == FOG:
+                continue  # unexplored
+
+            # Determine tile type string for spatial node
+            try:
+                tile_type = TileType(tile_val)
+            except ValueError:
+                continue
+
+            tile_name = tile_type.name  # e.g. "EMPTY", "WALL", etc.
+            matrix.add_spatial_node(r, c, tile_name, explored=True)
+
+            # Link entity nodes for notable tile types
+            if tile_val in _TILE_ENTITY_TYPE:
+                prefix = _TILE_ENTITY_PREFIX[tile_val]
+                entity_id = f"{prefix}_{r}_{c}"
+                entity_type = _TILE_ENTITY_TYPE[tile_val]
+                matrix.add_entity_node(entity_id, entity_type, {
+                    "location": f"({r},{c})",
+                })
+                host_tile = f"Tile_{r}_{c}"
+                matrix.add_typed_edge(host_tile, entity_id, "CONTAINS")
+
+    # ── 4. Spatial connectivity for explored adjacent tiles ──
+    for r in range(rows):
+        for c in range(cols):
+            if int(full_grid[r, c]) == FOG:
+                continue
+            tile_val = int(full_grid[r, c])
+            # Walls don't connect
+            if tile_val == TileType.WALL:
+                continue
+            src_id = f"Tile_{r}_{c}"
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < rows and 0 <= nc < cols:
+                    neighbour_val = int(full_grid[nr, nc])
+                    if neighbour_val == FOG or neighbour_val == TileType.WALL:
+                        continue
+                    dst_id = f"Tile_{nr}_{nc}"
+                    matrix.add_typed_edge(src_id, dst_id, "CONNECTS_TO")
+
+    # ── 5. Inventory grounding ──
+    # Ensure Agent node exists
+    matrix.add_entity_node("Agent", "PLAYER", {
+        "position": f"({px},{py})",
+        "direction": Direction(ps["direction"]).name,
+        "health": ps["health"],
+    })
+    for item_id in ps.get("inventory", []):
+        matrix.add_entity_node(item_id, "ITEM", {"held": True})
+        matrix.add_typed_edge("Agent", item_id, "IN_INVENTORY")
+
 
 # ──────────────────────────────────────────────
 # Main interactive loop
@@ -147,12 +261,21 @@ def main() -> int:
     console = Console()
     env = CustomRPGEnv()
     dash = TerminalDashboard()
+    matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
+    inspector = WebMindInspector(matrix)
 
     obs, info = env.reset(seed=42)
     ps = obs["player_state"]
 
-    dash.add_log("[bold cyan]Engine initialised[/bold cyan] — spawn (1,1) facing EAST")
-    dash.add_log("[dim]Controls: W/↑=Fwd  A/←=Left  D/→=Right  E=Pickup  Space=Interact  Q=Quit[/dim]")
+    # Initial knowledge grounding
+    update_knowledge_from_obs(matrix, obs, prev_pos=None)
+
+    summary = matrix.get_graph_summary()
+    dash.add_log("[bold cyan]Engine init[/bold cyan] — spawn (1,1) EAST")
+    dash.add_log(
+        f"[dim]Graph: {summary['total_nodes']}N "
+        f"{summary['total_edges']}E[/dim]"
+    )
 
     terminated = False
     truncated = False
@@ -177,16 +300,16 @@ def main() -> int:
 
             while not terminated and not truncated and ps["health"] > 0:
                 action_or_quit = get_action_key(fd, timeout=0.02)
-                
+
                 if action_or_quit == 'QUIT':
-                    dash.add_log("[bold yellow]⏹ Manual quit requested[/bold yellow]")
+                    dash.add_log("[bold yellow]⏹ Quit[/bold yellow]")
                     live.update(dash.generate_layout(
                         obs_dict=obs,
                         step_count=step_count,
                         engine_state="QUIT",
                     ))
                     break
-                    
+
                 elif isinstance(action_or_quit, Action):
                     action = action_or_quit
                     prev_pos = tuple(ps["position"])
@@ -195,13 +318,15 @@ def main() -> int:
                     ps = obs["player_state"]
                     step_count = info["step_count"]
 
+                    # ── Update knowledge graph ──
+                    update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos)
+
                     # ── Build log entry ──
                     pos = ps["position"]
                     direction = ps["direction"]
                     dir_label = _DIR_SYMBOL.get(Direction(direction), "?")
                     hp = ps["health"]
 
-                    # Detect wall collision: MOVE_FORWARD but position unchanged
                     wall_blocked = (
                         action == Action.MOVE_FORWARD
                         and tuple(pos) == prev_pos
@@ -234,21 +359,20 @@ def main() -> int:
                     if terminated and hp > 0:
                         engine_state = "GOAL_REACHED"
                         dash.add_log(
-                            "[bold green]🏆 GOAL REACHED![/bold green]"
-                            f"  Steps: {step_count}  "
-                            f"Final HP: {hp}"
+                            "[bold green]🏆 GOAL![/bold green]"
+                            f" Steps:{step_count} HP:{hp}"
                         )
                     elif terminated or hp <= 0:
                         engine_state = "GAME_OVER"
                         dash.add_log(
                             "[bold red]💀 GAME OVER[/bold red]"
-                            f"  HP depleted at step {step_count}"
+                            f" step {step_count}"
                         )
                     elif truncated:
                         engine_state = "TRUNCATED"
                         dash.add_log(
-                            "[bold yellow]⏱ Episode truncated[/bold yellow]"
-                            f" at max steps ({step_count})"
+                            "[bold yellow]⏱ Truncated[/bold yellow]"
+                            f" step {step_count}"
                         )
 
                     # ── Refresh display ──
@@ -267,6 +391,10 @@ def main() -> int:
         # Strictly restore terminal to prevent session corruption
         termios.tcsetattr(fd, termios.TCSADRAIN, original_term)
 
+    # ── Export knowledge graph ──
+    output_path = inspector.render_html("graph_mind.html")
+    summary = matrix.get_graph_summary()
+
     # Post-game summary
     console.print()
     console.rule("[bold cyan]Session Summary[/bold cyan]")
@@ -275,6 +403,13 @@ def main() -> int:
     console.print(f"  [bold]Final HP:[/bold]      {ps['health']}")
     console.print(f"  [bold]Inventory:[/bold]     {ps['inventory']}")
     console.print(f"  [bold]Explored:[/bold]      {info['explored_pct'] * 100:.1f}%")
+    console.print(
+        f"  [bold]Graph:[/bold]        "
+        f"{summary['total_nodes']} nodes, "
+        f"{summary['total_edges']} edges  "
+        f"{summary['node_type_counts']}"
+    )
+    console.print(f"  [bold green][INFO][/bold green] Knowledge Matrix exported → {output_path}")
     console.rule()
     console.print()
 
