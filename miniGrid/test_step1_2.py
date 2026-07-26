@@ -142,8 +142,8 @@ def test_grid_elements_in_output() -> None:
     # Fog character (░) must appear — not everything is explored
     assert "░" in output, "Expected fog character '░' in output"
 
-    # Floor tile (.) must appear in explored area
-    assert "." in output, "Expected floor tile '.' in output"
+    # Floor tile (·) must appear in explored area
+    assert "·" in output, "Expected floor tile '·' in output"
 
 
 def test_log_messages_in_output() -> None:

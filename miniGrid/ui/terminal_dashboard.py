@@ -1,25 +1,25 @@
 """
 terminal_dashboard.py — Rich Split-Panel Terminal Dashboard
 ============================================================
-Renders a 3-panel + status-bar terminal UI for the Neuro-Symbolic
+Renders a compact 3-section terminal UI for the Neuro-Symbolic 
 RPG Cognitive Engine using the ``rich`` library.
 
-Layout
-------
+Designed to fit within a strict 18-line vertical budget to
+prevent terminal overflow or scrolling.
+
+Layout (18 lines total)
+-----------------------
 ::
 
-    ┌─────────────────────┬───────────────────────┐
-    │                     │  FAST MEMORY & LOGIC   │
-    │    WORLD VIEW       │  - Active Goal         │
-    │   (Fog of War)      │  - FAISS Match Dist    │
-    │                     │  - Active Rules        │
-    │                     ├───────────────────────┤
-    │                     │  THOUGHT STREAM LOG    │
-    │                     │  [01] …                │
-    │                     │  [02] …                │
-    ├─────────────────────┴───────────────────────┤
-    │  HP: 100 │ Step: 14 │ Inv: [Key_Red] │ …    │
-    └─────────────────────────────────────────────┘
+    ┌──────────────────┬──────────────────────┐  ─┐
+    │   WORLD VIEW     │  MEMORY & LOGIC      │   │
+    │  (10×10 grid)    │  - Goal / FAISS      │   │ 12 lines
+    │                  │  - Rules / Blocked   │   │ (top)
+    └──────────────────┴──────────────────────┘  ─┘
+    ┌─────────────────────────────────────────┐  ─┐
+    │  THOUGHT STREAM (3 logs)                │   │ 5 lines
+    └─────────────────────────────────────────┘  ─┘
+       HP │ Step │ Inventory │ State             ─┤ 1 line (status)
 
 Target: Python 3.10
 """
@@ -33,16 +33,25 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 from rich.layout import Layout
 from rich.panel import Panel
-from rich.table import Table
 from rich.text import Text
 
 from environment.entities import Direction, TileType
 
 # ──────────────────────────────────────────────
-# Tile rendering constants
+# Layout height budget (must total ≤ 18)
+# ──────────────────────────────────────────────
+_TOP_HEIGHT: int = 12        # World and Memory panels
+_THOUGHT_HEIGHT: int = 5     # Thought stream log panel
+_STATUS_HEIGHT: int = 1      # Status bar (no borders)
+_MAX_HEIGHT: int = _TOP_HEIGHT + _THOUGHT_HEIGHT + _STATUS_HEIGHT
+
+_THOUGHT_LOG_LINES: int = 3  # max visible log entries
+
+# ──────────────────────────────────────────────
+# Tile rendering constants (1 char per tile + single space)
 # ──────────────────────────────────────────────
 _TILE_ICON: Dict[int, str] = {
-    TileType.EMPTY:  ". ",
+    TileType.EMPTY:  "· ",
     TileType.WALL:   "█ ",
     TileType.DOOR:   "🚪",
     TileType.KEY:    "🔑",
@@ -57,24 +66,29 @@ _DIR_ARROW: Dict[Direction, str] = {
     Direction.WEST:  "◄ ",
 }
 
-_FOG_CHAR: str = "░░"
+_FOG_CHAR: str = "░ "
+
+# Per-tile Rich styles
+_TILE_STYLE: Dict[int, str] = {
+    TileType.EMPTY:  "bright_black",
+    TileType.WALL:   "white",
+    TileType.KEY:    "yellow",
+    TileType.DOOR:   "red",
+    TileType.HAZARD: "bold red",
+    TileType.GOAL:   "bold gold1",
+}
 
 
 class TerminalDashboard:
-    """Rich-based split-panel terminal renderer.
+    """Compact Rich-based terminal renderer.
 
-    Assembles a ``rich.layout.Layout`` containing:
-
-    * **World View** — 10×10 fog-of-war grid with entity icons.
-    * **Fast Memory & Logic** — subsystem telemetry panel.
-    * **Thought Stream** — rolling log of engine decisions.
-    * **Status Bar** — HP / Step / Inventory / Engine State.
+    Guarantees a strict maximum rendered height of 18 lines.
 
     Attributes:
         log_buffer: Fixed-length deque of recent timestamped log lines.
     """
 
-    def __init__(self, max_log_lines: int = 10) -> None:
+    def __init__(self, max_log_lines: int = _THOUGHT_LOG_LINES) -> None:
         self.log_buffer: collections.deque[str] = collections.deque(
             maxlen=max_log_lines,
         )
@@ -92,7 +106,7 @@ class TerminalDashboard:
         """
         ts = datetime.datetime.now().strftime("%H:%M:%S")
         idx = len(self.log_buffer) + 1
-        self.log_buffer.append(f"[dim]{ts}[/dim] [bold][{idx:02d}][/bold] {message}")
+        self.log_buffer.append(f"[dim]{ts}[/dim] [{idx:02d}] {message}")
 
     # ────────────────────────────────────────────
     #  Panel builders
@@ -129,27 +143,17 @@ class TerminalDashboard:
                 else:
                     tile_val = int(full_grid[r, c])
                     icon = _TILE_ICON.get(tile_val, "? ")
-                    # Per-type styling
-                    if tile_val == TileType.WALL:
-                        text.append(icon, style="white")
-                    elif tile_val == TileType.KEY:
-                        text.append(icon, style="yellow")
-                    elif tile_val == TileType.DOOR:
-                        text.append(icon, style="red")
-                    elif tile_val == TileType.HAZARD:
-                        text.append(icon, style="bold red")
-                    elif tile_val == TileType.GOAL:
-                        text.append(icon, style="bold gold1")
-                    else:
-                        text.append(icon, style="bright_black")
-            text.append("\n")
+                    style = _TILE_STYLE.get(tile_val, "white")
+                    text.append(icon, style=style)
+            # No trailing newline on the last row
+            if r < rows - 1:
+                text.append("\n")
 
         return Panel(
             text,
-            title="[bold cyan]⚔  WORLD VIEW[/bold cyan]",
-            subtitle="[dim]Fog of War 10×10[/dim]",
+            title="[bold cyan]⚔ WORLD[/bold cyan]",
             border_style="cyan",
-            padding=(0, 1),
+            padding=(0, 0),
         )
 
     def _render_memory_logic_panel(
@@ -170,89 +174,89 @@ class TerminalDashboard:
         """
         mem = fast_mem_info or {}
         logic = logic_info or {}
+        t = Text()
 
-        lines = Text()
+        # ── Fast Memory (4 lines) ──
+        t.append("━ Memory ━\n", style="bold magenta")
 
-        # Fast Memory section
-        lines.append("━ Fast Memory ━\n", style="bold magenta")
         goal = mem.get("active_goal", "—")
-        lines.append(f"  Active Goal   : ", style="dim")
-        lines.append(f"{goal}\n", style="bold white")
+        t.append(" Goal  : ", style="dim")
+        t.append(f"{goal}\n", style="bold white")
 
         faiss_match = mem.get("faiss_match", "—")
         faiss_dist = mem.get("faiss_distance", "—")
-        lines.append(f"  FAISS Match   : ", style="dim")
-        lines.append(f"{faiss_match}", style="bold white")
+        t.append(" FAISS : ", style="dim")
+        t.append(f"{faiss_match}", style="bold white")
         if faiss_dist != "—":
-            lines.append(f"  (d={faiss_dist:.4f})\n", style="yellow")
+            t.append(f" d={faiss_dist:.3f}\n", style="yellow")
         else:
-            lines.append("\n")
+            t.append("\n")
 
         loop = mem.get("loop_detected", False)
-        lines.append(f"  Loop Detected : ", style="dim")
+        buf_len = mem.get("buffer_length", 0)
+        t.append(" Loop  : ", style="dim")
         if loop:
-            lines.append("⚠ YES\n", style="bold red")
+            t.append("⚠ YES", style="bold red")
         else:
-            lines.append("No\n", style="green")
+            t.append("No", style="green")
+        t.append(f"  Buf:{buf_len}/20\n", style="dim")
 
-        buffer_len = mem.get("buffer_length", 0)
-        lines.append(f"  Buffer Depth  : ", style="dim")
-        lines.append(f"{buffer_len}/20\n", style="white")
-
-        # Symbolic Logic section
-        lines.append("\n")
-        lines.append("━ Symbolic Logic ━\n", style="bold blue")
+        # ── Symbolic Logic (4 lines) ──
+        t.append("━ Logic ━\n", style="bold blue")
 
         safe = logic.get("safe_to_step", "—")
-        lines.append(f"  SafeToStep    : ", style="dim")
+        t.append(" Safe  : ", style="dim")
         if safe is True:
-            lines.append("True\n", style="bold green")
+            t.append("True\n", style="bold green")
         elif safe is False:
-            lines.append("False\n", style="bold red")
+            t.append("False\n", style="bold red")
         else:
-            lines.append(f"{safe}\n", style="white")
+            t.append(f"{safe}\n", style="white")
 
         rules = logic.get("active_rules", [])
-        lines.append(f"  Active Rules  : ", style="dim")
+        t.append(" Rules : ", style="dim")
         if rules:
-            lines.append(f"{len(rules)}\n", style="white")
-            for rule in rules[:4]:
-                lines.append(f"    • {rule}\n", style="dim")
+            t.append(", ".join(str(r) for r in rules[:3]) + "\n", style="white")
         else:
-            lines.append("—\n", style="white")
+            t.append("—\n", style="white")
 
         forbidden = logic.get("forbidden_actions", [])
-        lines.append(f"  Forbidden     : ", style="dim")
+        t.append(" Block : ", style="dim")
         if forbidden:
-            lines.append(", ".join(str(a) for a in forbidden) + "\n", style="red")
+            t.append(", ".join(str(a) for a in forbidden), style="red")
         else:
-            lines.append("None\n", style="green")
+            t.append("None", style="green")
 
         return Panel(
-            lines,
-            title="[bold magenta]🧠 MEMORY & LOGIC[/bold magenta]",
+            t,
+            title="[bold magenta]🧠 MEM+LOGIC[/bold magenta]",
             border_style="magenta",
-            padding=(0, 1),
+            padding=(0, 0),
         )
 
     def _render_thought_stream(self) -> Panel:
-        """Render the scrolling thought-stream log panel.
+        """Render the compact thought-stream log panel.
+
+        Displays at most ``_THOUGHT_LOG_LINES`` (3) entries.
 
         Returns:
             A ``rich.panel.Panel`` with the most recent log entries.
         """
         text = Text()
         if not self.log_buffer:
-            text.append("  (no log entries yet)\n", style="dim italic")
+            text.append(" (no logs yet)", style="dim italic")
         else:
-            for line in self.log_buffer:
-                text.append_text(Text.from_markup(line + "\n"))
+            entries = list(self.log_buffer)[-_THOUGHT_LOG_LINES:]
+            for i, line in enumerate(entries):
+                text.append_text(Text.from_markup(line))
+                if i < len(entries) - 1:
+                    text.append("\n")
 
         return Panel(
             text,
-            title="[bold green]💭 THOUGHT STREAM[/bold green]",
+            title="[bold green]💭 LOG[/bold green]",
             border_style="green",
-            padding=(0, 1),
+            padding=(0, 0),
         )
 
     def _render_status_bar(
@@ -261,24 +265,12 @@ class TerminalDashboard:
         step_count: int,
         inventory: List[str],
         state: str,
-    ) -> Panel:
-        """Render the horizontal status bar.
-
-        Args:
-            player_hp:  Current hit-points.
-            step_count: Total environment steps elapsed.
-            inventory:  List of item_id strings in the player's bag.
-            state:      Engine state label (e.g. EXPLORING, REFLECTING).
+    ) -> Text:
+        """Render the single-row horizontal status bar.
 
         Returns:
-            A single-line ``rich.panel.Panel``.
+            A bare ``rich.text.Text`` line (no borders) to save vertical space.
         """
-        table = Table.grid(expand=True, padding=(0, 2))
-        table.add_column(justify="left", ratio=1)
-        table.add_column(justify="left", ratio=1)
-        table.add_column(justify="left", ratio=2)
-        table.add_column(justify="right", ratio=1)
-
         # HP colouring
         if player_hp > 60:
             hp_style = "bold green"
@@ -287,21 +279,15 @@ class TerminalDashboard:
         else:
             hp_style = "bold red"
 
-        hp_text = Text(f"♥ HP: {player_hp}", style=hp_style)
-        step_text = Text(f"⏱ Step: {step_count}", style="bold white")
+        inv_str = ",".join(inventory) if inventory else "∅"
 
-        inv_str = ", ".join(inventory) if inventory else "∅"
-        inv_text = Text(f"🎒 Inv: [{inv_str}]", style="bold yellow")
+        row = Text()
+        row.append(f" ♥{player_hp} ", style=hp_style)
+        row.append(f" │ ⏱{step_count} ", style="bold white")
+        row.append(f" │ 🎒[{inv_str}] ", style="bold yellow")
+        row.append(f" │ ⚙ {state}", style="bold cyan")
 
-        state_text = Text(f"⚙ {state}", style="bold cyan")
-
-        table.add_row(hp_text, step_text, inv_text, state_text)
-
-        return Panel(
-            table,
-            border_style="bright_black",
-            padding=(0, 1),
-        )
+        return row
 
     # ────────────────────────────────────────────
     #  Layout assembler
@@ -315,7 +301,7 @@ class TerminalDashboard:
         step_count: int = 0,
         engine_state: str = "EXPLORING",
     ) -> Layout:
-        """Assemble the full 3-panel + status-bar Rich Layout.
+        """Assemble the strict 18-line Rich Layout.
 
         Args:
             obs_dict:     Observation dict from ``CustomRPGEnv`` containing
@@ -326,8 +312,7 @@ class TerminalDashboard:
             engine_state: High-level engine state label.
 
         Returns:
-            ``rich.layout.Layout`` ready for ``Console.print()`` or
-            ``Live`` rendering.
+            ``rich.layout.Layout`` explicitly constrained to 18 lines.
         """
         ps = obs_dict.get("player_state", {})
         player_pos: Tuple[int, int] = ps.get("position", (0, 0))
@@ -341,7 +326,7 @@ class TerminalDashboard:
         )
         explored_grid: np.ndarray = full_grid >= 0  # FOG == -1
 
-        # ── Panels ──
+        # ── Build panels ──
         world_panel = self._render_world_grid(
             full_grid, explored_grid, player_pos, player_dir,
         )
@@ -349,40 +334,35 @@ class TerminalDashboard:
             fast_mem_info, logic_info,
         )
         thought_panel = self._render_thought_stream()
-        status_panel = self._render_status_bar(
+        status_line = self._render_status_bar(
             player_hp, step_count, inventory, engine_state,
         )
 
-        # ── Layout assembly ──
+        # ── Layout assembly (fixed sizes) ──
         #
-        #  ┌──── body ──────────────────────────────┐
-        #  │  left (world)  │  right                 │
-        #  │                │  ┌─ right_top ───────┐ │
-        #  │                │  │ mem & logic        │ │
-        #  │                │  ├─ right_bottom ────┤ │
-        #  │                │  │ thought stream    │ │
-        #  │                │  └───────────────────┘ │
-        #  ├──── footer ────────────────────────────┤
-        #  │  status bar                             │
-        #  └─────────────────────────────────────────┘
+        #  ┌─── top (12 lines) ─────────────────┐
+        #  │  left (world)  │  right (mem)       │
+        #  │  size=12       │  size=12           │
+        #  ├─── thought (5 lines) ──────────────┤
+        #  │  thought stream                     │
+        #  ├─── status (1 line) ────────────────┤
+        #  │  status bar (Text)                  │
+        #  └─────────────────────────────────────┘
 
-        layout = Layout(name="root")
+        layout = Layout(name="root", size=_MAX_HEIGHT)
         layout.split_column(
-            Layout(name="body", ratio=5),
-            Layout(name="footer", size=3),
+            Layout(name="top", size=_TOP_HEIGHT),
+            Layout(name="thought", size=_THOUGHT_HEIGHT),
+            Layout(name="status", size=_STATUS_HEIGHT),
         )
-        layout["body"].split_row(
+        layout["top"].split_row(
             Layout(name="left", ratio=1),
             Layout(name="right", ratio=1),
         )
-        layout["right"].split_column(
-            Layout(name="right_top", ratio=3),
-            Layout(name="right_bottom", ratio=2),
-        )
 
         layout["left"].update(world_panel)
-        layout["right_top"].update(mem_logic_panel)
-        layout["right_bottom"].update(thought_panel)
-        layout["footer"].update(status_panel)
+        layout["right"].update(mem_logic_panel)
+        layout["thought"].update(thought_panel)
+        layout["status"].update(status_line)
 
         return layout
