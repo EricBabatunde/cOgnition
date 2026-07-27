@@ -32,6 +32,7 @@ from rich.console import Console
 from rich.live import Live
 
 from cognitive.core_graph import CoreKnowledgeMatrix
+from cognitive.fast_memory import FastPlasticityMemory
 from cognitive.symbolic_engine import SymbolicLogicEngine
 from environment import Action, CustomRPGEnv, Direction
 from environment.entities import FOG, TileType
@@ -209,6 +210,28 @@ def get_forward_tile_context(env: CustomRPGEnv, obs: Dict[str, Any]) -> Dict[str
 
 
 # ──────────────────────────────────────────────
+# Metacognitive Reflection & Consolidation
+# ──────────────────────────────────────────────
+
+def trigger_sleep_consolidation(
+    fast_memory: FastPlasticityMemory, 
+    matrix: CoreKnowledgeMatrix, 
+    dashboard: TerminalDashboard,
+    novelty: float
+) -> None:
+    """Offline reflection cycle triggered by high prediction error."""
+    recent_experiences = fast_memory.get_recent_experiences(5)
+    
+    for exp in recent_experiences:
+        ps = exp.state_dict
+        px, py = ps.get("position", (0, 0))
+        # Ensure corresponding topological nodes exist in CoreKnowledgeMatrix
+        matrix.add_spatial_node(px, py, "EMPTY", explored=True)
+        
+    dashboard.add_log(f"🧠 [REFLECTION CYCLE] High Prediction Error (ΔE={novelty:.2f}) -> Consolidated {len(recent_experiences)} RAM nodes into Core Graph")
+
+
+# ──────────────────────────────────────────────
 # Perception-to-Graph Helper
 # ──────────────────────────────────────────────
 
@@ -317,10 +340,15 @@ def main() -> int:
     inspector = WebMindInspector(matrix)
     
     symbolic_engine = SymbolicLogicEngine()
+    fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
     symbolic_engine.load_rules_from_config("config/innate_instincts.json")
 
     obs, info = env.reset(seed=42)
     ps = obs["player_state"]
+    
+    # Initialize UI state tracking variables for fast memory
+    current_novelty = 0.0
+    current_weight = 1.0
 
     # Initial knowledge grounding
     update_knowledge_from_obs(matrix, obs, prev_pos=None)
@@ -346,6 +374,11 @@ def main() -> int:
                 obs_dict=obs,
                 step_count=step_count,
                 engine_state=engine_state,
+                fast_mem_info={
+                    "faiss_count": fast_memory.faiss_index.ntotal,
+                    "novelty_score": current_novelty,
+                    "active_weight": current_weight
+                }
             ),
             console=console,
             refresh_per_second=15,
@@ -368,10 +401,15 @@ def main() -> int:
                 elif isinstance(action_or_quit, Action):
                     action = action_or_quit
                     prev_pos = tuple(ps["position"])
+                    
+                    # ── 1. Fast Memory Step Clock & Novelty Grounding ──
+                    state_context = get_forward_tile_context(env, obs)
+                    fast_memory.step_clock()
+                    vec = fast_memory.vectorizer.vectorize(obs, state_context)
+                    current_novelty = fast_memory.calculate_novelty(vec)
 
-                    # ── Executive Safety Gate Interception ──
+                    # ── 2. Executive Safety Gate Interception ──
                     if action == Action.MOVE_FORWARD:
-                        state_context = get_forward_tile_context(env, obs)
                         is_safe, explanation, status, active_rules = symbolic_engine.verify_action_dynamic(
                             "MOVE_FORWARD", state_context
                         )
@@ -385,13 +423,27 @@ def main() -> int:
                                 obs_dict=obs,
                                 step_count=step_count,
                                 engine_state=engine_state,
+                                fast_mem_info={
+                                    "faiss_count": fast_memory.faiss_index.ntotal,
+                                    "novelty_score": current_novelty,
+                                    "active_weight": current_weight
+                                }
                             ))
                             time.sleep(0.01)
                             continue
 
+                    # ── 3. Execute Valid Action ──
                     obs, reward, terminated, truncated, info = env.step(action)
                     ps = obs["player_state"]
                     step_count = info["step_count"]
+                    
+                    # ── 4. Cache Episodic Experience ──
+                    exp = fast_memory.store_experience(obs, state_context, action.name, reward)
+                    current_weight = exp.weight
+                    
+                    # ── 5. Metacognitive Reflection Trigger ──
+                    if current_novelty >= 0.50:
+                        trigger_sleep_consolidation(fast_memory, matrix, dash, current_novelty)
 
                     # ── Update knowledge graph ──
                     update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos)
@@ -455,6 +507,11 @@ def main() -> int:
                         obs_dict=obs,
                         step_count=step_count,
                         engine_state=engine_state,
+                        fast_mem_info={
+                            "faiss_count": fast_memory.faiss_index.ntotal,
+                            "novelty_score": current_novelty,
+                            "active_weight": current_weight
+                        }
                     ))
 
                 # Prevent 100% CPU utilization

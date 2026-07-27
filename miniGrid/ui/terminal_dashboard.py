@@ -179,27 +179,20 @@ class TerminalDashboard:
         # ── Fast Memory (4 lines) ──
         t.append("━ Memory ━\n", style="bold magenta")
 
-        goal = mem.get("active_goal", "—")
-        t.append(" Goal  : ", style="dim")
-        t.append(f"{goal}\n", style="bold white")
-
-        faiss_match = mem.get("faiss_match", "—")
-        faiss_dist = mem.get("faiss_distance", "—")
+        faiss_count = mem.get("faiss_count", 0)
         t.append(" FAISS : ", style="dim")
-        t.append(f"{faiss_match}", style="bold white")
-        if faiss_dist != "—":
-            t.append(f" d={faiss_dist:.3f}\n", style="yellow")
-        else:
-            t.append("\n")
+        t.append(f"{faiss_count} items\n", style="bold white")
 
-        loop = mem.get("loop_detected", False)
-        buf_len = mem.get("buffer_length", 0)
-        t.append(" Loop  : ", style="dim")
-        if loop:
-            t.append("⚠ YES", style="bold red")
+        novelty = mem.get("novelty_score", 0.0)
+        t.append(" Nov(ΔE): ", style="dim")
+        if novelty >= 0.50:
+            t.append(f"{novelty:.2f} (Anomaly)\n", style="bold red")
         else:
-            t.append("No", style="green")
-        t.append(f"  Buf:{buf_len}/20\n", style="dim")
+            t.append(f"{novelty:.2f}\n", style="green")
+
+        weight = mem.get("active_weight", 1.0)
+        t.append(" Weight : ", style="dim")
+        t.append(f"W={weight:.3f}\n", style="cyan")
 
         # ── Symbolic Logic (4 lines) ──
         t.append("━ Logic ━\n", style="bold blue")
