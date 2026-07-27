@@ -225,6 +225,166 @@ class CoreKnowledgeMatrix:
             return []
 
     # ────────────────────────────────────────────
+    #  Topological Pathfinding
+    # ────────────────────────────────────────────
+
+    # Clockwise direction ring: NORTH → EAST → SOUTH → WEST
+    _DIR_RING: List[Tuple[int, int]] = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
+    def find_topological_path(
+        self,
+        start_pos: Tuple[int, int],
+        target_pos: Tuple[int, int],
+        known_inventory: Optional[List[str]] = None,
+    ) -> Optional[List[Tuple[int, int]]]:
+        """Find the shortest traversable path using A* on the knowledge graph.
+
+        Constructs a filtered subgraph view that excludes WALL and
+        HAZARD tiles, and only includes DOOR tiles when the agent
+        holds a matching KEY in ``known_inventory``.
+
+        Args:
+            start_pos:       ``(row, col)`` agent start coordinate.
+            target_pos:      ``(row, col)`` desired destination.
+            known_inventory: List of inventory item strings. Doors are
+                             traversable when any item contains ``"key"``
+                             (case-insensitive).
+
+        Returns:
+            Ordered list of ``(row, col)`` coordinate tuples from start
+            to target (inclusive), or ``None`` if no valid path exists.
+        """
+        if known_inventory is None:
+            known_inventory = []
+
+        has_key = any("key" in item.lower() for item in known_inventory)
+
+        def _is_traversable(node: str) -> bool:
+            data = self.graph.nodes.get(node, {})
+            if data.get("node_type") != "SPATIAL":
+                return False
+            tile = data.get("tile_type", "UNKNOWN")
+            if tile == "WALL":
+                return False
+            if tile == "HAZARD":
+                return False
+            if tile == "DOOR" and not has_key:
+                return False
+            return True
+
+        # Build subgraph view containing only traversable spatial nodes
+        traversable_nodes = [n for n in self.graph.nodes if _is_traversable(n)]
+        subgraph: nx.DiGraph = self.graph.subgraph(traversable_nodes)
+
+        start_id = f"Tile_{start_pos[0]}_{start_pos[1]}"
+        target_id = f"Tile_{target_pos[0]}_{target_pos[1]}"
+
+        if start_id not in subgraph or target_id not in subgraph:
+            return None
+
+        def _l1_heuristic(u: str, v: str) -> float:
+            u_data = self.graph.nodes[u]
+            v_data = self.graph.nodes[v]
+            ux, uy = u_data.get("pos", (0, 0))
+            vx, vy = v_data.get("pos", (0, 0))
+            return abs(ux - vx) + abs(uy - vy)
+
+        try:
+            node_path = nx.astar_path(
+                subgraph, start_id, target_id, heuristic=_l1_heuristic
+            )
+        except (nx.NetworkXNoPath, nx.NodeNotFound):
+            return None
+
+        # Convert node IDs back to coordinate tuples
+        coord_path: List[Tuple[int, int]] = []
+        for node_id in node_path:
+            pos = self.graph.nodes[node_id].get("pos")
+            if pos is not None:
+                coord_path.append(pos)
+            else:
+                # Fallback: parse from node ID "Tile_R_C"
+                parts = node_id.split("_")
+                coord_path.append((int(parts[1]), int(parts[2])))
+
+        return coord_path
+
+    # ────────────────────────────────────────────
+    #  Action Sequence Planner
+    # ────────────────────────────────────────────
+
+    def plan_action_sequence(
+        self,
+        path: List[Tuple[int, int]],
+        current_direction: Tuple[int, int],
+    ) -> List[str]:
+        """Translate a coordinate path into a sequence of action strings.
+
+        Given a list of waypoint coordinates and the agent's current
+        facing direction vector ``(dx, dy)``, produces the minimal
+        sequence of ``TURN_LEFT``, ``TURN_RIGHT``, and ``MOVE_FORWARD``
+        actions required to traverse the path.
+
+        Direction ring (clockwise index):
+            0 = NORTH (-1, 0)
+            1 = EAST  ( 0, 1)
+            2 = SOUTH ( 1, 0)
+            3 = WEST  ( 0,-1)
+
+        Args:
+            path:              Ordered ``(row, col)`` waypoints
+                               (at least 2 entries).
+            current_direction: Agent's initial facing as ``(dx, dy)``.
+
+        Returns:
+            List of action name strings. Empty list if the path has
+            fewer than 2 waypoints.
+        """
+        if len(path) < 2:
+            return []
+
+        ring = self._DIR_RING
+        try:
+            facing_idx = ring.index(tuple(current_direction))
+        except ValueError:
+            # Default to NORTH if direction is unrecognised
+            facing_idx = 0
+
+        actions: List[str] = []
+
+        for i in range(len(path) - 1):
+            curr_r, curr_c = path[i]
+            next_r, next_c = path[i + 1]
+
+            target_dr = next_r - curr_r
+            target_dc = next_c - curr_c
+
+            try:
+                target_idx = ring.index((target_dr, target_dc))
+            except ValueError:
+                # Skip non-cardinal movements
+                continue
+
+            # Calculate minimal rotation in the clockwise ring
+            delta = (target_idx - facing_idx) % 4
+
+            if delta == 0:
+                # Already facing the target
+                pass
+            elif delta == 1:
+                actions.append("TURN_RIGHT")
+            elif delta == 3:
+                actions.append("TURN_LEFT")
+            elif delta == 2:
+                actions.append("TURN_RIGHT")
+                actions.append("TURN_RIGHT")
+
+            actions.append("MOVE_FORWARD")
+            facing_idx = target_idx
+
+        return actions
+
+    # ────────────────────────────────────────────
     #  Diagnostics
     # ────────────────────────────────────────────
 
