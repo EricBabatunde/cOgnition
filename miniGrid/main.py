@@ -32,6 +32,7 @@ from rich.console import Console
 from rich.live import Live
 
 from cognitive.core_graph import CoreKnowledgeMatrix
+from cognitive.symbolic_engine import SymbolicLogicEngine
 from environment import Action, CustomRPGEnv, Direction
 from environment.entities import FOG, TileType
 from ui.terminal_dashboard import TerminalDashboard
@@ -157,6 +158,57 @@ _TILE_ENTITY_PREFIX: Dict[int, str] = {
 
 
 # ──────────────────────────────────────────────
+# Target Tile & Grounding Helper
+# ──────────────────────────────────────────────
+
+def get_forward_tile_context(env: CustomRPGEnv, obs: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract grounding facts for the tile immediately in front of the agent."""
+    ps = obs["player_state"]
+    px, py = ps["position"]
+    direction = Direction(ps["direction"])
+
+    dx, dy = 0, 0
+    if direction == Direction.NORTH:
+        dx, dy = -1, 0
+    elif direction == Direction.SOUTH:
+        dx, dy = 1, 0
+    elif direction == Direction.EAST:
+        dx, dy = 0, 1
+    elif direction == Direction.WEST:
+        dx, dy = 0, -1
+
+    fx, fy = px + dx, py + dy
+
+    grid = env.unwrapped._grid
+    if 0 <= fx < grid.shape[0] and 0 <= fy < grid.shape[1]:
+        tile_val = int(grid[fx, fy])
+    else:
+        tile_val = int(TileType.WALL)
+
+    try:
+        tile_type = TileType(tile_val)
+    except ValueError:
+        tile_type = TileType.EMPTY
+
+    door_is_locked = False
+    if tile_type == TileType.DOOR:
+        entity = env.unwrapped._entities.get((fx, fy))
+        if entity:
+            door_is_locked = entity.is_locked
+
+    has_key = any("key" in item.lower() for item in ps.get("inventory", []))
+
+    return {
+        "is_wall": tile_type == TileType.WALL,
+        "is_hazard": tile_type == TileType.HAZARD,
+        "is_door": tile_type == TileType.DOOR,
+        "is_locked": tile_type == TileType.DOOR and door_is_locked,
+        "has_key": has_key,
+        "target_tile": tile_type.name,
+    }
+
+
+# ──────────────────────────────────────────────
 # Perception-to-Graph Helper
 # ──────────────────────────────────────────────
 
@@ -263,6 +315,9 @@ def main() -> int:
     dash = TerminalDashboard()
     matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
     inspector = WebMindInspector(matrix)
+    
+    symbolic_engine = SymbolicLogicEngine()
+    symbolic_engine.load_rules_from_config("config/innate_instincts.json")
 
     obs, info = env.reset(seed=42)
     ps = obs["player_state"]
@@ -313,6 +368,26 @@ def main() -> int:
                 elif isinstance(action_or_quit, Action):
                     action = action_or_quit
                     prev_pos = tuple(ps["position"])
+
+                    # ── Executive Safety Gate Interception ──
+                    if action == Action.MOVE_FORWARD:
+                        state_context = get_forward_tile_context(env, obs)
+                        is_safe, explanation, status, active_rules = symbolic_engine.verify_action_dynamic(
+                            "MOVE_FORWARD", state_context
+                        )
+                        if not is_safe:
+                            dash.add_log(
+                                f"[bold red]BLOCKED [Z3 UNSAT]:[/bold red] "
+                                f"{explanation} | Rules: {active_rules}"
+                            )
+                            # Skip environment step processing for this tick
+                            live.update(dash.generate_layout(
+                                obs_dict=obs,
+                                step_count=step_count,
+                                engine_state=engine_state,
+                            ))
+                            time.sleep(0.01)
+                            continue
 
                     obs, reward, terminated, truncated, info = env.step(action)
                     ps = obs["player_state"]
