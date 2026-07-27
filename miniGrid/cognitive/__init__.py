@@ -6,9 +6,10 @@ perceive, reason, and act within the RPG environment.
 """
 
 from .core_graph import CoreKnowledgeMatrix
-from .symbolic_engine import SymbolicLogicEngine
+from .symbolic_engine import SymbolicLogicEngine, SymbolicRule
 
 __all__ = [
     "CoreKnowledgeMatrix",
     "SymbolicLogicEngine",
+    "SymbolicRule",
 ]
