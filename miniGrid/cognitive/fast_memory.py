@@ -119,12 +119,17 @@ class FastPlasticityMemory:
         self.dimension = dimension
         self.capacity = capacity
         
+        # Disable OpenMP threading for FAISS to prevent massive spin-up overhead
+        # on tiny single-vector batches, ensuring sub-millisecond latency.
+        faiss.omp_set_num_threads(1)
+        
         # FAISS index (using IDMap to associate vectors with our IDs)
         # Note: IndexIDMap2 supports removing vectors, which is useful for ring buffers.
         self._base_index = faiss.IndexFlatL2(self.dimension)
         self.faiss_index = faiss.IndexIDMap2(self._base_index)
         
         self.experience_buffer: collections.deque[EpisodicExperience] = collections.deque(maxlen=self.capacity)
+        self._id_to_exp: Dict[int, EpisodicExperience] = {}
         self.vectorizer = StateVectorizer(dimension=self.dimension)
         
         self._counter = 0
@@ -214,8 +219,10 @@ class FastPlasticityMemory:
             oldest_exp = self.experience_buffer[0]
             old_faiss_id = np.array([oldest_exp._faiss_id], dtype=np.int64)
             self.faiss_index.remove_ids(old_faiss_id)
+            self._id_to_exp.pop(oldest_exp._faiss_id, None)
             
         self.experience_buffer.append(exp)
+        self._id_to_exp[self._counter] = exp
         return exp
 
     def query_similar(
@@ -243,16 +250,7 @@ class FastPlasticityMemory:
             if f_id == -1:
                 continue
             
-            # Find the experience in the deque matching this FAISS ID
-            # In a production system, a dict mapping ID -> Exp is faster (O(1))
-            # but for N=1000, linear scan is fine, or we can use a dict.
-            matched_exp = None
-            # Fast reverse scan since recent memories are more likely matched
-            for exp in reversed(self.experience_buffer):
-                if getattr(exp, "_faiss_id", -1) == f_id:
-                    matched_exp = exp
-                    break
-                    
+            matched_exp = self._id_to_exp.get(f_id)
             if matched_exp:
                 results.append((matched_exp, float(dist)))
                 
