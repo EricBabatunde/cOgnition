@@ -43,12 +43,14 @@ class SymbolicRule:
         premise:    Predicate string (e.g. ``"InFront(Wall)"``).
         conclusion: Outcome string (e.g. ``"Forbid(MOVE_FORWARD)"``).
         confidence: Trust weight in [0.0, 1.0].
+        cached_expr: Pre-compiled Z3 expression for fast evaluation.
     """
 
     rule_id: str
     premise: str
     conclusion: str
     confidence: float = 1.0
+    cached_expr: Optional[z3.ExprRef] = field(default=None, repr=False)
 
 
 # ──────────────────────────────────────────────
@@ -163,6 +165,20 @@ class SymbolicLogicEngine:
         self.loaded_rules: List[SymbolicRule] = []
         self.min_confidence_threshold: float = min_confidence_threshold
 
+        # ── Pre-allocated Z3 Boolean variables ──
+        self.z3_vars: Dict[str, z3.ExprRef] = {
+            "is_wall": z3.Bool("is_wall"),
+            "is_hazard": z3.Bool("is_hazard"),
+            "is_door": z3.Bool("is_door"),
+            "is_locked": z3.Bool("is_locked"),
+            "has_key": z3.Bool("has_key"),
+            "act_move": z3.Bool("act_move"),
+            "act_interact": z3.Bool("act_interact"),
+        }
+
+        # ── Persistent Z3 Solver ──
+        self.solver = z3.Solver()
+
     # ────────────────────────────────────────────
     #  Dynamic rule loading
     # ────────────────────────────────────────────
@@ -205,6 +221,8 @@ class SymbolicLogicEngine:
                     conclusion=entry["conclusion"],
                     confidence=float(entry.get("confidence", 1.0)),
                 )
+                # Pre-compile to Z3 AST
+                rule.cached_expr = self.parse_rule_to_z3(rule, self.z3_vars)
                 self.loaded_rules.append(rule)
                 count += 1
             except (KeyError, TypeError, ValueError):
@@ -280,60 +298,50 @@ class SymbolicLogicEngine:
             else self.min_confidence_threshold
         )
 
-        solver = z3.Solver()
+        self.solver.push()
+        try:
+            # ── Ground state facts ──
+            self.solver.add(self.z3_vars["is_wall"] == state_context.get("is_wall", False))
+            self.solver.add(self.z3_vars["is_hazard"] == state_context.get("is_hazard", False))
+            self.solver.add(self.z3_vars["is_door"] == state_context.get("is_door", False))
+            self.solver.add(self.z3_vars["is_locked"] == state_context.get("is_locked", False))
+            self.solver.add(self.z3_vars["has_key"] == state_context.get("has_key", False))
 
-        # ── Z3 Boolean variables ──
-        z3_vars: Dict[str, z3.ExprRef] = {
-            "is_wall": z3.Bool("is_wall"),
-            "is_hazard": z3.Bool("is_hazard"),
-            "is_door": z3.Bool("is_door"),
-            "is_locked": z3.Bool("is_locked"),
-            "has_key": z3.Bool("has_key"),
-            "act_move": z3.Bool("act_move"),
-            "act_interact": z3.Bool("act_interact"),
-        }
+            # ── Ground proposed action ──
+            action_upper = action_name.upper()
+            self.solver.add(self.z3_vars["act_move"] == (action_upper == "MOVE_FORWARD"))
+            self.solver.add(self.z3_vars["act_interact"] == (action_upper == "TOGGLE_INTERACT"))
 
-        # ── Ground state facts ──
-        solver.add(z3_vars["is_wall"] == state_context.get("is_wall", False))
-        solver.add(z3_vars["is_hazard"] == state_context.get("is_hazard", False))
-        solver.add(z3_vars["is_door"] == state_context.get("is_door", False))
-        solver.add(z3_vars["is_locked"] == state_context.get("is_locked", False))
-        solver.add(z3_vars["has_key"] == state_context.get("has_key", False))
+            # ── Filter and assert dynamic rules ──
+            active_rule_ids: List[str] = []
+            for rule in self.loaded_rules:
+                if rule.confidence < threshold:
+                    continue
 
-        # ── Ground proposed action ──
-        action_upper = action_name.upper()
-        solver.add(z3_vars["act_move"] == (action_upper == "MOVE_FORWARD"))
-        solver.add(z3_vars["act_interact"] == (action_upper == "TOGGLE_INTERACT"))
+                if rule.cached_expr is not None:
+                    self.solver.add(rule.cached_expr)
+                    active_rule_ids.append(rule.rule_id)
 
-        # ── Filter and assert dynamic rules ──
-        active_rule_ids: List[str] = []
-        for rule in self.loaded_rules:
-            if rule.confidence < threshold:
-                continue
+            # ── Solve ──
+            status = self.solver.check()
 
-            expr = self.parse_rule_to_z3(rule, z3_vars)
-            if expr is not None:
-                solver.add(expr)
-                active_rule_ids.append(rule.rule_id)
+            if status == z3.sat:
+                return (
+                    True,
+                    "Action mathematically verified safe",
+                    "SAT",
+                    active_rule_ids,
+                )
 
-        # ── Solve ──
-        status = solver.check()
-
-        if status == z3.sat:
             return (
-                True,
-                "Action mathematically verified safe",
-                "SAT",
+                False,
+                f"Safety violation detected for action {action_name} "
+                f"(rules: {', '.join(active_rule_ids)})",
+                "UNSAT",
                 active_rule_ids,
             )
-
-        return (
-            False,
-            f"Safety violation detected for action {action_name} "
-            f"(rules: {', '.join(active_rule_ids)})",
-            "UNSAT",
-            active_rule_ids,
-        )
+        finally:
+            self.solver.pop()
 
     # ────────────────────────────────────────────
     #  Static verification (backwards compatible)

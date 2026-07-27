@@ -1,7 +1,6 @@
 miniGrid/
 ├── main.py
 ├── requirements.txt
-├── pyproject.toml
 ├── README.md
 ├── cognitive/
     ├── __init__.py
