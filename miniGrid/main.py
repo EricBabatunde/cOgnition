@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """
-main.py — Interactive Turn-Based Execution Loop
+main.py — Dual-Mode Cognitive Execution Loop
 =================================================
-Provides keyboard-driven manual teleop control of the Custom RPG
-Environment with real-time Rich terminal dashboard rendering and
-dynamic CoreKnowledgeMatrix world-model updates.
+Provides both keyboard-driven manual teleop and fully autonomous
+goal-directed execution modes for the Custom RPG Environment
+with real-time Rich terminal dashboard rendering.
 
-Controls:
+Manual Controls:
     W / ↑       Move Forward
     A / ←       Turn Left
     D / →       Turn Right
     E           Pick Up Item
     Space       Toggle Interact (Door / Lever)
     Q           Quit
+
+Autonomous Mode:
+    --auto      Run hands-off with Executive Goal Synthesis
 
 Target: Python 3.10  |  Platform: Linux (termios)
 """
@@ -32,12 +35,24 @@ from rich.console import Console
 from rich.live import Live
 
 from cognitive.core_graph import CoreKnowledgeMatrix
+from cognitive.executive_admin import ExecutiveGoalEngine
 from cognitive.fast_memory import FastPlasticityMemory
 from cognitive.symbolic_engine import SymbolicLogicEngine
 from environment import Action, CustomRPGEnv, Direction
 from environment.entities import FOG, TileType
 from ui.terminal_dashboard import TerminalDashboard
 from ui.web_inspector import WebMindInspector
+
+# Direction enum → direction vector mapping
+_DIR_TO_VEC: Dict[Direction, Tuple[int, int]] = {
+    Direction.NORTH: (-1, 0),
+    Direction.EAST:  (0, 1),
+    Direction.SOUTH: (1, 0),
+    Direction.WEST:  (0, -1),
+}
+
+# Action name string → Action enum mapping
+_ACTION_NAME_MAP: Dict[str, Action] = {a.name: a for a in Action}
 
 
 # ──────────────────────────────────────────────
@@ -328,24 +343,206 @@ def update_knowledge_from_obs(
 
 
 # ──────────────────────────────────────────────
-# Main interactive loop
+# Autonomous Goal-Directed Execution Loop
 # ──────────────────────────────────────────────
 
-def main() -> int:
+def run_autonomous_loop(
+    env: CustomRPGEnv,
+    matrix: CoreKnowledgeMatrix,
+    symbolic_engine: SymbolicLogicEngine,
+    fast_memory: FastPlasticityMemory,
+    goal_engine: ExecutiveGoalEngine,
+    dash: TerminalDashboard,
+    inspector: WebMindInspector,
+    console: Console,
+    max_steps: int = 200,
+    render_dashboard: bool = True,
+) -> Dict[str, Any]:
+    """Fully autonomous cognitive execution loop.
+
+    Integrates Executive Goal Synthesis, A* Pathfinding,
+    Z3 Safety Verification, and Fast RAM Reflection into
+    a unified hands-off event loop.
+
+    Returns:
+        Telemetry dict with performance metrics.
+    """
+    obs, info = env.reset(seed=42)
+    ps = obs["player_state"]
+    update_knowledge_from_obs(matrix, obs, prev_pos=None)
+
+    # ── Telemetry counters ──
+    step_count = 0
+    safety_blocks = 0
+    reflection_cycles = 0
+    current_novelty = 0.0
+    current_weight = 1.0
+    engine_state = "AUTONOMOUS"
+    action_queue: List[str] = []
+
+    t_start = time.perf_counter()
+
+    dash.add_log("[bold cyan]⚡ Autonomous mode engaged[/bold cyan]")
+
+    terminated = False
+    truncated = False
+
+    def _refresh_dashboard() -> None:
+        if not render_dashboard:
+            return
+        return dash.generate_layout(
+            obs_dict=obs,
+            step_count=step_count,
+            engine_state=engine_state,
+            fast_mem_info={
+                "faiss_count": fast_memory.faiss_index.ntotal,
+                "novelty_score": current_novelty,
+                "active_weight": current_weight,
+            },
+        )
+
+    with Live(
+        _refresh_dashboard(),
+        console=console,
+        refresh_per_second=15,
+        auto_refresh=True,
+        screen=render_dashboard,
+    ) as live:
+
+        for tick in range(max_steps):
+            if terminated or truncated or ps["health"] <= 0:
+                break
+
+            prev_pos = tuple(ps["position"])
+
+            # ── Step 1: Ground state context & novelty ──
+            state_context = get_forward_tile_context(env, obs)
+            fast_memory.step_clock()
+            vec = fast_memory.vectorizer.vectorize(obs, state_context)
+            current_novelty = fast_memory.calculate_novelty(vec)
+
+            # ── Step 2: Reflection trigger on high ΔE ──
+            if current_novelty >= 0.50:
+                trigger_sleep_consolidation(
+                    fast_memory, matrix, dash, current_novelty
+                )
+                reflection_cycles += 1
+                action_queue.clear()  # Invalidate stale plan
+
+            # ── Step 3: Plan maintenance ──
+            if not action_queue:
+                direction = Direction(ps["direction"])
+                current_dir = _DIR_TO_VEC[direction]
+                inventory = ps.get("inventory", [])
+                pos = tuple(ps["position"])
+
+                goal_stack = goal_engine.synthesize_goal_stack(pos, inventory)
+                if goal_stack:
+                    action_queue = goal_engine.compile_execution_plan(
+                        goal_stack, pos, current_dir, inventory
+                    )
+                    goals_str = ", ".join(g.goal_type.name for g in goal_stack)
+                    dash.add_log(
+                        f"[bold magenta]📋 Plan:[/bold magenta] {goals_str} "
+                        f"({len(action_queue)} actions)"
+                    )
+                else:
+                    # Fallback: random exploratory action
+                    action_queue = [Action(env.action_space.sample()).name]
+
+            # ── Step 4: Dispatch next action with safety gate ──
+            act_name = action_queue.pop(0)
+            action = _ACTION_NAME_MAP.get(act_name)
+            if action is None:
+                continue
+
+            # Z3 safety interception for forward movement
+            if action == Action.MOVE_FORWARD:
+                state_context = get_forward_tile_context(env, obs)
+                is_safe, explanation, status, active_rules = (
+                    symbolic_engine.verify_action_dynamic(
+                        "MOVE_FORWARD", state_context
+                    )
+                )
+                if not is_safe:
+                    safety_blocks += 1
+                    action_queue.clear()  # Purge invalid plan
+                    dash.add_log(
+                        f"[bold red]⛔ Z3 BLOCK:[/bold red] {explanation}"
+                    )
+                    if render_dashboard:
+                        live.update(_refresh_dashboard())
+                    continue
+
+            # ── Step 5: Execute valid action ──
+            obs, reward, terminated, truncated, info = env.step(action)
+            ps = obs["player_state"]
+            step_count = info["step_count"]
+
+            # Cache experience & reinforce
+            exp = fast_memory.store_experience(
+                obs, state_context, action.name, reward
+            )
+            current_weight = exp.weight
+            if reward > 0:
+                tile = state_context.get("target_tile", "EMPTY")
+                fast_memory.reinforce(tile, action.name, reward)
+
+            update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos)
+
+            # ── Step 6: Terminal detection ──
+            hp = ps["health"]
+            if terminated and hp > 0:
+                engine_state = "GOAL_REACHED"
+                dash.add_log(
+                    f"[bold green]🏆 GOAL![/bold green] "
+                    f"Steps:{step_count} HP:{hp}"
+                )
+            elif terminated or hp <= 0:
+                engine_state = "GAME_OVER"
+                dash.add_log(
+                    f"[bold red]💀 GAME OVER[/bold red] step {step_count}"
+                )
+            elif truncated:
+                engine_state = "TRUNCATED"
+
+            if render_dashboard:
+                live.update(_refresh_dashboard())
+            time.sleep(0.02)
+
+    elapsed = time.perf_counter() - t_start
+
+    telemetry = {
+        "total_steps": step_count,
+        "safety_blocks": safety_blocks,
+        "reflection_cycles": reflection_cycles,
+        "elapsed_seconds": elapsed,
+        "engine_state": engine_state,
+        "final_hp": ps["health"],
+        "faiss_count": fast_memory.faiss_index.ntotal,
+    }
+    return telemetry
+
+
+# ──────────────────────────────────────────────
+# Manual interactive loop
+# ──────────────────────────────────────────────
+
+def run_manual_loop() -> int:
     """Run the interactive teleop loop."""
     console = Console()
     env = CustomRPGEnv()
     dash = TerminalDashboard()
     matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
     inspector = WebMindInspector(matrix)
-    
+
     symbolic_engine = SymbolicLogicEngine()
     fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
     symbolic_engine.load_rules_from_config("config/innate_instincts.json")
 
     obs, info = env.reset(seed=42)
     ps = obs["player_state"]
-    
+
     # Initialize UI state tracking variables for fast memory
     current_novelty = 0.0
     current_weight = 1.0
@@ -401,7 +598,7 @@ def main() -> int:
                 elif isinstance(action_or_quit, Action):
                     action = action_or_quit
                     prev_pos = tuple(ps["position"])
-                    
+
                     # ── 1. Fast Memory Step Clock & Novelty Grounding ──
                     state_context = get_forward_tile_context(env, obs)
                     fast_memory.step_clock()
@@ -418,7 +615,6 @@ def main() -> int:
                                 f"[bold red]BLOCKED [Z3 UNSAT]:[/bold red] "
                                 f"{explanation} | Rules: {active_rules}"
                             )
-                            # Skip environment step processing for this tick
                             live.update(dash.generate_layout(
                                 obs_dict=obs,
                                 step_count=step_count,
@@ -436,11 +632,11 @@ def main() -> int:
                     obs, reward, terminated, truncated, info = env.step(action)
                     ps = obs["player_state"]
                     step_count = info["step_count"]
-                    
+
                     # ── 4. Cache Episodic Experience ──
                     exp = fast_memory.store_experience(obs, state_context, action.name, reward)
                     current_weight = exp.weight
-                    
+
                     # ── 5. Metacognitive Reflection Trigger ──
                     if current_novelty >= 0.50:
                         trigger_sleep_consolidation(fast_memory, matrix, dash, current_novelty)
@@ -520,14 +716,12 @@ def main() -> int:
     except KeyboardInterrupt:
         pass
     finally:
-        # Strictly restore terminal to prevent session corruption
         termios.tcsetattr(fd, termios.TCSADRAIN, original_term)
 
     # ── Export knowledge graph ──
     output_path = inspector.render_html("graph_mind.html")
     summary = matrix.get_graph_summary()
 
-    # Post-game summary
     console.print()
     console.rule("[bold cyan]Session Summary[/bold cyan]")
     console.print(f"  [bold]Engine State:[/bold]  {engine_state}")
@@ -546,6 +740,62 @@ def main() -> int:
     console.print()
 
     return 0
+
+
+# ──────────────────────────────────────────────
+# Entry point
+# ──────────────────────────────────────────────
+
+def main() -> int:
+    """Dual-mode entry point: --auto for autonomous, default for manual."""
+    if "--auto" in sys.argv:
+        console = Console()
+        env = CustomRPGEnv()
+        dash = TerminalDashboard()
+        matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
+        inspector = WebMindInspector(matrix)
+        symbolic_engine = SymbolicLogicEngine()
+        symbolic_engine.load_rules_from_config("config/innate_instincts.json")
+        fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
+        goal_engine = ExecutiveGoalEngine(matrix, symbolic_engine)
+
+        telemetry = run_autonomous_loop(
+            env=env,
+            matrix=matrix,
+            symbolic_engine=symbolic_engine,
+            fast_memory=fast_memory,
+            goal_engine=goal_engine,
+            dash=dash,
+            inspector=inspector,
+            console=console,
+            max_steps=200,
+            render_dashboard=True,
+        )
+
+        output_path = inspector.render_html("graph_mind.html")
+        summary = matrix.get_graph_summary()
+
+        console.print()
+        console.rule("[bold cyan]Autonomous Session Summary[/bold cyan]")
+        console.print(f"  [bold]Engine State:[/bold]    {telemetry['engine_state']}")
+        console.print(f"  [bold]Total Steps:[/bold]     {telemetry['total_steps']}")
+        console.print(f"  [bold]Final HP:[/bold]        {telemetry['final_hp']}")
+        console.print(f"  [bold]Safety Blocks:[/bold]   {telemetry['safety_blocks']}")
+        console.print(f"  [bold]Reflections:[/bold]     {telemetry['reflection_cycles']}")
+        console.print(f"  [bold]FAISS Vectors:[/bold]   {telemetry['faiss_count']}")
+        console.print(f"  [bold]Elapsed:[/bold]         {telemetry['elapsed_seconds']:.2f}s")
+        console.print(
+            f"  [bold]Graph:[/bold]          "
+            f"{summary['total_nodes']} nodes, "
+            f"{summary['total_edges']} edges  "
+            f"{summary['node_type_counts']}"
+        )
+        console.print(f"  [bold green][INFO][/bold green] Knowledge Matrix exported → {output_path}")
+        console.rule()
+        console.print()
+        return 0
+
+    return run_manual_loop()
 
 
 if __name__ == "__main__":
