@@ -62,18 +62,26 @@ class ExecutiveGoalEngine:
 
     def _find_frontier(self, current_pos: Tuple[int, int], inventory: List[str]) -> Optional[Tuple[int, int]]:
         """Find an unexplored frontier spatial node that is reachable."""
-        # A simple heuristic: find a spatial node with fewer than 4 connects_to edges
-        # that we can reach.
         reachable_nodes = []
         for node_id, data in self.matrix.graph.nodes(data=True):
             if data.get("node_type") == "SPATIAL" and data.get("tile_type") == "EMPTY":
                 pos = data.get("pos")
-                if pos and pos != current_pos:
-                    adj = self.matrix.get_adjacent_tiles(node_id)
-                    if len(adj) < 4:
-                        reachable_nodes.append(pos)
+                if not pos:
+                    continue
+                
+                # A true frontier node borders at least one coordinate that is entirely
+                # missing from the knowledge graph (i.e. currently FOG in the world).
+                is_frontier = False
+                for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    neighbor_id = f"Tile_{pos[0]+dr}_{pos[1]+dc}"
+                    if not self.matrix.graph.has_node(neighbor_id):
+                        is_frontier = True
+                        break
+                
+                if is_frontier and pos != current_pos:
+                    reachable_nodes.append(pos)
         
-        # Sort by distance
+        # Sort by distance (L1 heuristic)
         reachable_nodes.sort(key=lambda p: abs(p[0] - current_pos[0]) + abs(p[1] - current_pos[1]))
         
         for pos in reachable_nodes:

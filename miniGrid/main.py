@@ -486,7 +486,7 @@ def run_autonomous_loop(
             current_weight = exp.weight
             if reward > 0:
                 tile = state_context.get("target_tile", "EMPTY")
-                fast_memory.reinforce(tile, action.name, reward)
+                fast_memory.reinforce_hebbian(tile, action.name, reward)
 
             update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos)
 
