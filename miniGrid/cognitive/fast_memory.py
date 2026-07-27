@@ -35,6 +35,8 @@ class EpisodicExperience:
     reward: float
     timestamp: float
     novelty_score: float
+    weight: float = 1.0
+    step_created: int = 0
 
 
 # ──────────────────────────────────────────────
@@ -133,6 +135,33 @@ class FastPlasticityMemory:
         self.vectorizer = StateVectorizer(dimension=self.dimension)
         
         self._counter = 0
+        self.current_step = 0
+        self.decay_rate = 0.995
+        self.hebbian_learning_rate = 0.1
+        self.hebbian_matrix: Dict[Tuple[str, str], float] = {}
+
+    def step_clock(self) -> None:
+        """Increment internal clock and apply exponential decay to experience weights."""
+        self.current_step += 1
+        for exp in self.experience_buffer:
+            exp.weight *= self.decay_rate
+
+    def reinforce_hebbian(self, state_type: str, action: str, reward: float) -> float:
+        """Update Hebbian co-activation memory for a given state-action pair.
+        
+        Args:
+            state_type: Categorical state feature (e.g., target_tile).
+            action: Action executed.
+            reward: Reward received.
+            
+        Returns:
+            The updated association weight.
+        """
+        pair = (state_type, action)
+        current = self.hebbian_matrix.get(pair, 0.0)
+        updated = current + self.hebbian_learning_rate * (1.0 + reward)
+        self.hebbian_matrix[pair] = updated
+        return updated
 
     def calculate_novelty(self, vector: np.ndarray, k: int = 3) -> float:
         """Calculate novelty score ΔE based on local vector neighborhood.
@@ -183,12 +212,16 @@ class FastPlasticityMemory:
         
         # State snapshot for persistence
         ps = obs.get("player_state", {})
+        target_tile = state_context.get("target_tile", "UNKNOWN")
         state_dict = {
             "position": tuple(ps.get("position", (0, 0))),
             "direction": ps.get("direction", 0),
             "inventory": ps.get("inventory", []),
-            "target_tile": state_context.get("target_tile", "UNKNOWN")
+            "target_tile": target_tile
         }
+        
+        hebbian_score = self.hebbian_matrix.get((target_tile, action), 0.0)
+        initial_weight = 1.0 + hebbian_score
         
         exp = EpisodicExperience(
             experience_id=exp_id_str,
@@ -197,7 +230,9 @@ class FastPlasticityMemory:
             action=action,
             reward=reward,
             timestamp=time.time(),
-            novelty_score=novelty
+            novelty_score=novelty,
+            weight=initial_weight,
+            step_created=self.current_step
         )
         
         # Enforce ring buffer behavior in FAISS if at capacity
@@ -232,29 +267,45 @@ class FastPlasticityMemory:
     ) -> List[Tuple[EpisodicExperience, float]]:
         """Retrieve the k most similar past experiences to a state vector.
         
+        Utilises FAISS to find candidate matches, then applies a Hebbian and
+        decay-adjusted scoring modifier:
+        Adjusted Distance = Raw L2 / (experience.weight * (1.0 + hebbian_weight))
+        
         Args:
             vector: (1, D) numpy array L2-normalized state vector.
             k: Number of nearest neighbors to retrieve.
             
         Returns:
-            List of (EpisodicExperience, L2_distance) tuples.
+            List of (EpisodicExperience, adjusted_distance) tuples, sorted
+            by ascending adjusted distance (lower is better).
         """
         if self.faiss_index.ntotal == 0:
             return []
             
-        k_search = min(k, self.faiss_index.ntotal)
+        # Oversample candidates to allow re-ranking
+        k_search = min(k * 2, self.faiss_index.ntotal)
         distances, indices = self.faiss_index.search(vector, k_search)
         
-        results = []
+        candidates = []
         for dist, f_id in zip(distances[0], indices[0]):
             if f_id == -1:
                 continue
             
             matched_exp = self._id_to_exp.get(f_id)
             if matched_exp:
-                results.append((matched_exp, float(dist)))
+                target_tile = matched_exp.state_dict.get("target_tile", "UNKNOWN")
+                h_weight = self.hebbian_matrix.get((target_tile, matched_exp.action), 0.0)
                 
-        return results
+                denom = matched_exp.weight * (1.0 + h_weight)
+                if denom <= 0.0:
+                    denom = 1e-9
+                    
+                adjusted_distance = float(dist) / denom
+                candidates.append((matched_exp, adjusted_distance))
+                
+        # Re-sort candidates by the new adjusted distance ascending
+        candidates.sort(key=lambda x: x[1])
+        return candidates[:k]
 
     def get_recent_experiences(self, n: int = 10) -> List[EpisodicExperience]:
         """Return the most recently stored experiences.
