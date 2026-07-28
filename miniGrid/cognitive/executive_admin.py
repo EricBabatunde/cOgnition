@@ -39,6 +39,22 @@ class ExecutiveGoalEngine:
     def __init__(self, matrix: CoreKnowledgeMatrix, logic_engine: SymbolicLogicEngine) -> None:
         self.matrix = matrix
         self.logic_engine = logic_engine
+        self.blocked_nodes = set()
+
+    def register_blocked_node(self, coordinate: Tuple[int, int]) -> None:
+        """Register a coordinate as blocked by the safety gate."""
+        self.blocked_nodes.add(coordinate)
+
+    def register_inventory_change(self, inventory: List[str]) -> None:
+        """Update blocked nodes registry when a key is acquired."""
+        has_key = any("key" in item.lower() for item in inventory)
+        if has_key:
+            # Remove all door nodes from blocked_nodes so they can be path-found
+            for node_id, data in self.matrix.graph.nodes(data=True):
+                if data.get("node_type") == "SPATIAL" and data.get("tile_type") == "DOOR":
+                    pos = data.get("pos")
+                    if pos and tuple(pos) in self.blocked_nodes:
+                        self.blocked_nodes.remove(tuple(pos))
 
     def _parse_location(self, loc_str: str) -> Optional[Tuple[int, int]]:
         """Parse a location string like '(r,c)' into a tuple."""
@@ -85,7 +101,7 @@ class ExecutiveGoalEngine:
         reachable_nodes.sort(key=lambda p: abs(p[0] - current_pos[0]) + abs(p[1] - current_pos[1]))
         
         for pos in reachable_nodes:
-            path = self.matrix.find_topological_path(current_pos, pos, inventory)
+            path = self.matrix.find_topological_path(current_pos, pos, inventory, exclude_nodes=self.blocked_nodes)
             if path:
                 return pos
         return None
@@ -99,12 +115,12 @@ class ExecutiveGoalEngine:
             goal_pos, goal_id = goal_entity
             
             # 1. Try direct path assuming we have NO keys
-            direct_path_no_keys = self.matrix.find_topological_path(current_pos, goal_pos, [])
+            direct_path_no_keys = self.matrix.find_topological_path(current_pos, goal_pos, [], exclude_nodes=self.blocked_nodes)
             if direct_path_no_keys:
                 return [SubGoal(GoalType.REACH_EXIT, goal_pos, target_entity=goal_id)]
             
             # 2. Try path assuming we have a key
-            path_with_key = self.matrix.find_topological_path(current_pos, goal_pos, inventory + ["key_simulated"])
+            path_with_key = self.matrix.find_topological_path(current_pos, goal_pos, inventory + ["key_simulated"], exclude_nodes=self.blocked_nodes)
             if path_with_key:
                 # Find the door that is blocking us
                 door_pos = None
@@ -160,7 +176,7 @@ class ExecutiveGoalEngine:
             # Check if we can path to the tile adjacent to the door (using keys)
             # We need to reach a tile next to the door, face it, and toggle.
             path_to_door = self.matrix.find_topological_path(
-                current_pos, pos, inventory + ["key_simulated"],
+                current_pos, pos, inventory + ["key_simulated"], exclude_nodes=self.blocked_nodes
             )
             if not path_to_door:
                 continue
@@ -196,35 +212,59 @@ class ExecutiveGoalEngine:
         ring = self.matrix._DIR_RING
         
         for goal in goal_stack:
-            path = self.matrix.find_topological_path(pos, goal.target_pos, simulated_inv)
+            path = self.matrix.find_topological_path(pos, goal.target_pos, simulated_inv, exclude_nodes=self.blocked_nodes)
             if not path:
                 # Cannot reach this sub-goal, abort planning rest
                 break
                 
-            seq = self.matrix.plan_action_sequence(path, direction)
+            seq: List[str] = []
+            try:
+                facing_idx = ring.index(tuple(direction))
+            except ValueError:
+                facing_idx = 0
+                
+            for i in range(len(path) - 1):
+                curr_r, curr_c = path[i]
+                next_r, next_c = path[i + 1]
+                
+                target_dr = next_r - curr_r
+                target_dc = next_c - curr_c
+                
+                try:
+                    target_idx = ring.index((target_dr, target_dc))
+                except ValueError:
+                    continue
+                    
+                delta = (target_idx - facing_idx) % 4
+                if delta == 1:
+                    seq.append("TURN_RIGHT")
+                elif delta == 3:
+                    seq.append("TURN_LEFT")
+                elif delta == 2:
+                    seq.append("TURN_RIGHT")
+                    seq.append("TURN_RIGHT")
+                    
+                next_node_id = f"Tile_{next_r}_{next_c}"
+                next_node_data = self.matrix.graph.nodes.get(next_node_id, {})
+                tile_type = next_node_data.get("tile_type", "")
+                
+                if tile_type in ("DOOR", "INTERACTIVE"):
+                    seq.append("TOGGLE_INTERACT")
+                    seq.append("MOVE_FORWARD")
+                else:
+                    seq.append("MOVE_FORWARD")
+                    
+                facing_idx = target_idx
+
             actions.extend(seq)
             
             # Update position and direction
             pos = goal.target_pos
-            if seq:
-                # Track direction changes
-                try:
-                    facing_idx = ring.index(tuple(direction))
-                except ValueError:
-                    facing_idx = 0
-                    
-                for action in seq:
-                    if action == "TURN_LEFT":
-                        facing_idx = (facing_idx - 1) % 4
-                    elif action == "TURN_RIGHT":
-                        facing_idx = (facing_idx + 1) % 4
-                direction = ring[facing_idx]
+            direction = ring[facing_idx]
                 
             # Append interaction commands
             if goal.goal_type == GoalType.FETCH_KEY:
                 actions.append("PICK_UP")
                 simulated_inv.append("key_simulated")
-            elif goal.goal_type == GoalType.UNLOCK_DOOR:
-                actions.append("TOGGLE_INTERACT")
                 
         return actions

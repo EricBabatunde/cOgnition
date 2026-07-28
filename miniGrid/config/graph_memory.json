@@ -1,0 +1,3281 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "node_type": "AXIOM",
+      "premise": "InFront(Wall)",
+      "conclusion": "Forbid(MOVE_FORWARD)",
+      "confidence": 1.0,
+      "id": "wall_blocking"
+    },
+    {
+      "node_type": "AXIOM",
+      "premise": "SeeInFOV(GoalChest)",
+      "conclusion": "SetPriorityTarget(GoalChest)",
+      "confidence": 0.95,
+      "id": "goal_priority"
+    },
+    {
+      "node_type": "AXIOM",
+      "premise": "InFront(Door) AND IsLocked(Door)",
+      "conclusion": "RequiresItem(MatchingKey)",
+      "confidence": 0.9,
+      "id": "locked_door_requires_key"
+    },
+    {
+      "node_type": "AXIOM",
+      "premise": "InFront(Hazard)",
+      "conclusion": "Forbid(MOVE_FORWARD)",
+      "confidence": 1.0,
+      "id": "hazard_avoidance"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        1
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        2
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        3
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        4
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        5
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        2
+      ],
+      "tile_type": "LEVER",
+      "explored": true,
+      "id": "Tile_2_2"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "KEY",
+      "location": "(2,2)",
+      "id": "Key_2_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_5"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "PLAYER",
+      "position": "(8,8)",
+      "direction": "EAST",
+      "health": 100,
+      "id": "Agent"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_1_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_2_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_3_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_4_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_3"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "HAZARD",
+      "location": "(4,3)",
+      "id": "Hazard_4_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_5_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        3
+      ],
+      "tile_type": "UNMAPPED_TRAP",
+      "explored": true,
+      "id": "Tile_5_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        6
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        6
+      ],
+      "tile_type": "KEY",
+      "explored": true,
+      "id": "Tile_3_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        7
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        8
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_0_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_1_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_2_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_3_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_5"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "DOOR",
+      "location": "(5,5)",
+      "id": "Door_5_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        6
+      ],
+      "tile_type": "DECOY_CHEST",
+      "explored": true,
+      "id": "Tile_6_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        4
+      ],
+      "tile_type": "HAZARD",
+      "explored": true,
+      "id": "Tile_7_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        9
+      ],
+      "tile_type": "DOOR",
+      "explored": true,
+      "id": "Tile_4_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_5_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_6_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_7_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_8"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "GOAL",
+      "location": "(8,8)",
+      "id": "Goal_8_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_8_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        6
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        7
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        8
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_6_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_7_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_2"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "LEVER",
+      "location": "(2,2)",
+      "id": "Lever_2_2"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "UNMAPPED_TRAP",
+      "location": "(5,3)",
+      "id": "Trap_5_3"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "KEY",
+      "location": "(3,6)",
+      "id": "Key_3_6"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "DOOR",
+      "location": "(4,9)",
+      "id": "Door_4_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_1_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_2_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_3_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        10
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_5_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_1_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_2_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_3_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_4_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_5_12"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "DECOY_CHEST",
+      "location": "(6,6)",
+      "id": "Decoy_6_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_6_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_7_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_8_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        6
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        7
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        8
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_11_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_11_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_11_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_11_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_11_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_12_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        7
+      ],
+      "tile_type": "UNMAPPED_TRAP",
+      "explored": true,
+      "id": "Tile_12_7"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "UNMAPPED_TRAP",
+      "location": "(12,7)",
+      "id": "Trap_12_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_12_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_12_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_12_10"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "HAZARD",
+      "location": "(7,4)",
+      "id": "Hazard_7_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        4
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_9_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        4
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_10_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_6_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_7_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        11
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        12
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        11
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        12
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "id": "Tile_8_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        3
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_9_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        3
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "id": "Tile_10_3"
+    }
+  ],
+  "edges": [
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_1",
+      "target": "Tile_2_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_1",
+      "target": "Tile_1_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_2",
+      "target": "Tile_2_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_2",
+      "target": "Tile_1_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_2",
+      "target": "Tile_1_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_3",
+      "target": "Tile_2_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_3",
+      "target": "Tile_1_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_3",
+      "target": "Tile_1_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_4",
+      "target": "Tile_2_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_4",
+      "target": "Tile_1_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_4",
+      "target": "Tile_1_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_5",
+      "target": "Tile_2_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_5",
+      "target": "Tile_1_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_5",
+      "target": "Tile_1_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_1",
+      "target": "Tile_1_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_1",
+      "target": "Tile_3_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_1",
+      "target": "Tile_2_2"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_2_2",
+      "target": "Key_2_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_2",
+      "target": "Tile_1_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_2",
+      "target": "Tile_3_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_2",
+      "target": "Tile_2_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_2",
+      "target": "Tile_2_3"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_2_2",
+      "target": "Lever_2_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_3",
+      "target": "Tile_1_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_3",
+      "target": "Tile_3_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_3",
+      "target": "Tile_2_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_3",
+      "target": "Tile_2_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_4",
+      "target": "Tile_1_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_4",
+      "target": "Tile_3_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_4",
+      "target": "Tile_2_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_4",
+      "target": "Tile_2_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_5",
+      "target": "Tile_1_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_5",
+      "target": "Tile_3_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_5",
+      "target": "Tile_2_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_5",
+      "target": "Tile_2_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_1",
+      "target": "Tile_2_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_1",
+      "target": "Tile_3_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_1",
+      "target": "Tile_4_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_2",
+      "target": "Tile_2_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_2",
+      "target": "Tile_3_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_2",
+      "target": "Tile_3_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_2",
+      "target": "Tile_4_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_3",
+      "target": "Tile_2_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_3",
+      "target": "Tile_3_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_3",
+      "target": "Tile_3_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_3",
+      "target": "Tile_4_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_4",
+      "target": "Tile_2_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_4",
+      "target": "Tile_3_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_4",
+      "target": "Tile_3_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_4",
+      "target": "Tile_4_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_5",
+      "target": "Tile_2_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_5",
+      "target": "Tile_3_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_5",
+      "target": "Tile_3_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_5",
+      "target": "Tile_4_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_1",
+      "target": "Tile_3_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_1",
+      "target": "Tile_5_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_1",
+      "target": "Tile_4_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_2",
+      "target": "Tile_3_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_2",
+      "target": "Tile_5_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_2",
+      "target": "Tile_4_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_2",
+      "target": "Tile_4_3"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_4_3",
+      "target": "Hazard_4_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_3",
+      "target": "Tile_3_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_3",
+      "target": "Tile_5_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_3",
+      "target": "Tile_4_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_3",
+      "target": "Tile_4_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_1",
+      "target": "Tile_4_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_1",
+      "target": "Tile_5_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_1",
+      "target": "Tile_6_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_2",
+      "target": "Tile_4_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_2",
+      "target": "Tile_5_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_2",
+      "target": "Tile_5_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_2",
+      "target": "Tile_6_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_3",
+      "target": "Tile_4_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_3",
+      "target": "Tile_5_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_3",
+      "target": "Tile_5_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_3",
+      "target": "Tile_6_3"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_5_3",
+      "target": "Trap_5_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_6",
+      "target": "Tile_2_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_6",
+      "target": "Tile_1_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_6",
+      "target": "Tile_1_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_6",
+      "target": "Tile_1_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_6",
+      "target": "Tile_3_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_6",
+      "target": "Tile_2_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_6",
+      "target": "Tile_2_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_6",
+      "target": "Tile_2_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_6",
+      "target": "Tile_3_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_6",
+      "target": "Tile_3_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_6",
+      "target": "Tile_4_6"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_3_6",
+      "target": "Key_3_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_7",
+      "target": "Tile_2_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_7",
+      "target": "Tile_1_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_7",
+      "target": "Tile_1_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_7",
+      "target": "Tile_1_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_7",
+      "target": "Tile_3_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_7",
+      "target": "Tile_2_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_7",
+      "target": "Tile_2_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_7",
+      "target": "Tile_2_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_7",
+      "target": "Tile_3_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_7",
+      "target": "Tile_3_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_7",
+      "target": "Tile_4_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_8",
+      "target": "Tile_2_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_8",
+      "target": "Tile_1_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_8",
+      "target": "Tile_1_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_8",
+      "target": "Tile_3_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_8",
+      "target": "Tile_2_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_8",
+      "target": "Tile_2_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_8",
+      "target": "Tile_3_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_8",
+      "target": "Tile_4_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_4",
+      "target": "Tile_3_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_4",
+      "target": "Tile_5_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_4",
+      "target": "Tile_4_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_4",
+      "target": "Tile_4_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_5",
+      "target": "Tile_3_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_5",
+      "target": "Tile_5_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_5",
+      "target": "Tile_4_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_5",
+      "target": "Tile_4_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_6",
+      "target": "Tile_3_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_6",
+      "target": "Tile_5_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_6",
+      "target": "Tile_4_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_6",
+      "target": "Tile_4_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_7",
+      "target": "Tile_3_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_7",
+      "target": "Tile_5_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_7",
+      "target": "Tile_4_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_7",
+      "target": "Tile_4_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_4",
+      "target": "Tile_4_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_4",
+      "target": "Tile_5_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_4",
+      "target": "Tile_5_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_4",
+      "target": "Tile_6_4"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_5_5",
+      "target": "Door_5_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_5",
+      "target": "Tile_4_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_5",
+      "target": "Tile_5_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_5",
+      "target": "Tile_5_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_5",
+      "target": "Tile_6_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_6",
+      "target": "Tile_4_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_6",
+      "target": "Tile_5_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_6",
+      "target": "Tile_5_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_6",
+      "target": "Tile_6_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_7",
+      "target": "Tile_4_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_7",
+      "target": "Tile_5_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_7",
+      "target": "Tile_6_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_7",
+      "target": "Tile_5_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_3",
+      "target": "Tile_5_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_3",
+      "target": "Tile_6_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_3",
+      "target": "Tile_7_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_3",
+      "target": "Tile_6_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_4",
+      "target": "Tile_5_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_4",
+      "target": "Tile_6_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_4",
+      "target": "Tile_6_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_4",
+      "target": "Tile_7_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_5",
+      "target": "Tile_5_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_5",
+      "target": "Tile_6_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_5",
+      "target": "Tile_6_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_5",
+      "target": "Tile_7_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_6",
+      "target": "Tile_5_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_6",
+      "target": "Tile_6_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_6",
+      "target": "Tile_6_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_6",
+      "target": "Tile_7_6"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_6_6",
+      "target": "Decoy_6_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_7",
+      "target": "Tile_5_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_7",
+      "target": "Tile_6_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_7",
+      "target": "Tile_7_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_7",
+      "target": "Tile_6_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_3",
+      "target": "Tile_6_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_3",
+      "target": "Tile_7_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_3",
+      "target": "Tile_7_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_3",
+      "target": "Tile_8_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_4",
+      "target": "Tile_6_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_4",
+      "target": "Tile_7_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_4",
+      "target": "Tile_7_5"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_7_4",
+      "target": "Hazard_7_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_4",
+      "target": "Tile_8_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_5",
+      "target": "Tile_6_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_5",
+      "target": "Tile_7_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_5",
+      "target": "Tile_7_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_5",
+      "target": "Tile_8_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_6",
+      "target": "Tile_6_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_6",
+      "target": "Tile_7_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_6",
+      "target": "Tile_7_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_6",
+      "target": "Tile_8_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_7",
+      "target": "Tile_6_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_7",
+      "target": "Tile_7_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_7",
+      "target": "Tile_7_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_7",
+      "target": "Tile_8_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_8",
+      "target": "Tile_3_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_8",
+      "target": "Tile_5_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_8",
+      "target": "Tile_4_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_8",
+      "target": "Tile_4_9"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_4_9",
+      "target": "Door_4_9"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_9",
+      "target": "Tile_4_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_9",
+      "target": "Tile_4_10"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_8",
+      "target": "Tile_4_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_8",
+      "target": "Tile_5_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_8",
+      "target": "Tile_6_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_8",
+      "target": "Tile_5_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_8",
+      "target": "Tile_7_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_8",
+      "target": "Tile_6_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_8",
+      "target": "Tile_6_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_8",
+      "target": "Tile_7_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_8",
+      "target": "Tile_8_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_6",
+      "target": "Tile_7_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_6",
+      "target": "Tile_8_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_6",
+      "target": "Tile_8_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_7",
+      "target": "Tile_7_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_7",
+      "target": "Tile_8_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_7",
+      "target": "Tile_8_8"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_8_8",
+      "target": "Goal_8_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_8",
+      "target": "Tile_7_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_8",
+      "target": "Tile_8_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_1",
+      "target": "Tile_5_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_1",
+      "target": "Tile_6_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_1",
+      "target": "Tile_7_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_5_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_6_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_6_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_7_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_1",
+      "target": "Tile_6_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_1",
+      "target": "Tile_7_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_2",
+      "target": "Tile_6_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_2",
+      "target": "Tile_7_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_2",
+      "target": "Tile_7_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_10",
+      "target": "Tile_4_9"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_10",
+      "target": "Tile_4_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_11",
+      "target": "Tile_2_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_11",
+      "target": "Tile_1_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_11",
+      "target": "Tile_1_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_11",
+      "target": "Tile_3_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_11",
+      "target": "Tile_2_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_11",
+      "target": "Tile_2_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_11",
+      "target": "Tile_4_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_11",
+      "target": "Tile_3_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_11",
+      "target": "Tile_3_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_11",
+      "target": "Tile_5_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_11",
+      "target": "Tile_4_10"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_11",
+      "target": "Tile_4_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_11",
+      "target": "Tile_4_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_11",
+      "target": "Tile_5_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_11",
+      "target": "Tile_6_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_12",
+      "target": "Tile_2_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_12",
+      "target": "Tile_1_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_12",
+      "target": "Tile_1_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_12",
+      "target": "Tile_3_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_12",
+      "target": "Tile_2_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_12",
+      "target": "Tile_2_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_12",
+      "target": "Tile_4_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_12",
+      "target": "Tile_3_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_12",
+      "target": "Tile_3_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_12",
+      "target": "Tile_5_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_12",
+      "target": "Tile_4_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_12",
+      "target": "Tile_4_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_12",
+      "target": "Tile_5_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_12",
+      "target": "Tile_6_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_6",
+      "target": "Tile_11_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_6",
+      "target": "Tile_12_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_7",
+      "target": "Tile_11_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_7",
+      "target": "Tile_11_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_7",
+      "target": "Tile_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_8",
+      "target": "Tile_11_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_8",
+      "target": "Tile_12_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_6",
+      "target": "Tile_11_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_6",
+      "target": "Tile_12_7"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Trap_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Tile_11_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Tile_12_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Tile_12_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_8",
+      "target": "Tile_11_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_8",
+      "target": "Tile_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_4",
+      "target": "Tile_7_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_4",
+      "target": "Tile_8_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_4",
+      "target": "Tile_8_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_5",
+      "target": "Tile_7_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_5",
+      "target": "Tile_9_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_5",
+      "target": "Tile_8_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_5",
+      "target": "Tile_8_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_9_5",
+      "target": "Tile_8_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_9_5",
+      "target": "Tile_10_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_10_5",
+      "target": "Tile_9_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_11",
+      "target": "Tile_5_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_11",
+      "target": "Tile_7_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_11",
+      "target": "Tile_6_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_12",
+      "target": "Tile_5_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_12",
+      "target": "Tile_7_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_12",
+      "target": "Tile_6_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_11",
+      "target": "Tile_6_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_11",
+      "target": "Tile_8_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_11",
+      "target": "Tile_7_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_12",
+      "target": "Tile_6_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_12",
+      "target": "Tile_8_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_12",
+      "target": "Tile_7_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_11",
+      "target": "Tile_7_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_11",
+      "target": "Tile_8_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_12",
+      "target": "Tile_7_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_12",
+      "target": "Tile_8_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_3",
+      "target": "Tile_7_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_3",
+      "target": "Tile_8_4"
+    }
+  ]
+}

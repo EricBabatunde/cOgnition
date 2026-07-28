@@ -84,6 +84,9 @@ def _parse_premise(premise: str, z3v: Dict[str, z3.ExprRef]) -> Optional[z3.Expr
     if p == "InFront(Door) AND IsLocked(Door)":
         return z3.And(z3v["is_door"], z3v["is_locked"])
 
+    if p == "InFront(Door) AND HasItem(MatchingKey)":
+        return z3.And(z3v["is_door"], z3v["has_key"])
+
     if p == "InFront(Door)":
         return z3v["is_door"]
 
@@ -118,6 +121,9 @@ def _parse_conclusion(
 
     if c == "RequiresItem(MatchingKey)":
         return z3.Implies(z3v["act_move"], z3v["has_key"])
+
+    if c == "AllowAction(TOGGLE_INTERACT)":
+        return z3.Implies(z3v["act_interact"], z3.BoolVal(True))
 
     if c == "SetPriorityTarget(GoalChest)":
         # Advisory rule — does not constrain actions

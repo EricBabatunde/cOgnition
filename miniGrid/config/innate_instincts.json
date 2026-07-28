@@ -23,6 +23,12 @@
       "premise": "InFront(Hazard)",
       "conclusion": "Forbid(MOVE_FORWARD)",
       "confidence": 1.0
+    },
+    {
+      "rule_id": "door_interaction",
+      "premise": "InFront(Door) AND HasItem(MatchingKey)",
+      "conclusion": "AllowAction(TOGGLE_INTERACT)",
+      "confidence": 1.0
     }
   ]
 }

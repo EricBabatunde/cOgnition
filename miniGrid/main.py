@@ -513,17 +513,19 @@ def run_autonomous_loop(
                     action_queue = goal_engine.compile_execution_plan(
                         goal_stack, pos, current_dir, inventory
                     )
-                    goals_str = ", ".join(g.goal_type.name for g in goal_stack)
-                    dash.add_log(
-                        f"[bold magenta]📋 Plan:[/bold magenta] {goals_str} "
-                        f"({len(action_queue)} actions)"
-                    )
-                else:
-                    # Fallback: random exploratory action
-                    action_queue = [Action(env.action_space.sample()).name]
-
+                    if action_queue:
+                        goals_str = ", ".join(g.goal_type.name for g in goal_stack)
+                        dash.add_log(
+                            f"[bold magenta]📋 Plan:[/bold magenta] {goals_str} "
+                            f"({len(action_queue)} actions)"
+                        )
+                
             # ── Step 4: Dispatch next action with safety gate ──
-            act_name = action_queue.pop(0)
+            if not action_queue:
+                # Fallback FOV scan if queue remains empty after synthesis:
+                act_name = "TURN_RIGHT"  # Rotates agent to unmask new FOV fog-of-war
+            else:
+                act_name = action_queue.pop(0)
             action = _ACTION_NAME_MAP.get(act_name)
             if action is None:
                 continue
@@ -538,6 +540,12 @@ def run_autonomous_loop(
                 )
                 if not is_safe:
                     safety_blocks += 1
+                    
+                    cur_dir_vec = _DIR_TO_VEC[Direction(ps["direction"])]
+                    target_x = prev_pos[0] + cur_dir_vec[0]
+                    target_y = prev_pos[1] + cur_dir_vec[1]
+                    goal_engine.register_blocked_node((target_x, target_y))
+                    
                     action_queue.clear()  # Purge invalid plan
                     dash.add_log(
                         f"[bold red]⛔ Z3 BLOCK:[/bold red] {explanation}"
@@ -552,6 +560,8 @@ def run_autonomous_loop(
             ps = obs["player_state"]
             step_count = info["step_count"]
             hp_after_step = ps["health"]
+            
+            goal_engine.register_inventory_change(ps.get("inventory", []))
 
             # Cache experience & reinforce
             exp = fast_memory.store_experience(
@@ -845,6 +855,10 @@ def main() -> int:
                         help="Seconds to pause between ticks for UI visibility")
     parser.add_argument("--autonomous", action=argparse.BooleanOptionalAction, default=True,
                         help="Enables hands-off neuro-symbolic solver")
+    parser.add_argument("--multi-run", action=argparse.BooleanOptionalAction, default=False,
+                        help="Runs Episode 1 (learning), preserves graph, and runs Episode 2 (adaptation)")
+    parser.add_argument("--persist", action=argparse.BooleanOptionalAction, default=False,
+                        help="Save graph to config/graph_memory.json on exit and reload on startup")
     parser.add_argument("--export-graph", type=str, default=None,
                         help="Path to export PyVis HTML graph")
     
@@ -858,29 +872,73 @@ def main() -> int:
     env = CustomRPGEnv(tier=args.tier)
     dash = TerminalDashboard()
     matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
+    
+    if args.persist:
+        matrix.load_graph("config/graph_memory.json")
+        
     inspector = WebMindInspector(matrix)
     
     symbolic_engine = SymbolicLogicEngine()
     symbolic_engine.load_rules_from_config("config/innate_instincts.json")
     fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
 
+    # Scale max_steps based on tier
+    tier_max_steps = {1: 100, 2: 500, 3: 2000}.get(args.tier, 200)
+
     if args.autonomous:
         goal_engine = ExecutiveGoalEngine(matrix, symbolic_engine)
-        telemetry = run_autonomous_loop(
-            env=env,
-            matrix=matrix,
-            symbolic_engine=symbolic_engine,
-            fast_memory=fast_memory,
-            goal_engine=goal_engine,
-            dash=dash,
-            inspector=inspector,
-            console=console,
-            max_steps=200,
-            render_dashboard=True,
-            step_delay=args.step_delay,
-        )
+        
+        if args.multi_run:
+            console.rule("[bold cyan]=== STARTING RUN 1: EXPLORATION & LEARNING ===[/bold cyan]")
+            telemetry = run_autonomous_loop(
+                env=env,
+                matrix=matrix,
+                symbolic_engine=symbolic_engine,
+                fast_memory=fast_memory,
+                goal_engine=goal_engine,
+                dash=dash,
+                inspector=inspector,
+                console=console,
+                max_steps=tier_max_steps,
+                render_dashboard=True,
+                step_delay=args.step_delay,
+            )
+            
+            console.rule("[bold cyan]=== STARTING RUN 2: ZERO-SHOT ADAPTED TRAVERSAL ===[/bold cyan]")
+            # Reset environment for Run 2, but keep matrix
+            fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
+            telemetry = run_autonomous_loop(
+                env=env,
+                matrix=matrix,
+                symbolic_engine=symbolic_engine,
+                fast_memory=fast_memory,
+                goal_engine=goal_engine,
+                dash=dash,
+                inspector=inspector,
+                console=console,
+                max_steps=tier_max_steps,
+                render_dashboard=True,
+                step_delay=args.step_delay,
+            )
+        else:
+            telemetry = run_autonomous_loop(
+                env=env,
+                matrix=matrix,
+                symbolic_engine=symbolic_engine,
+                fast_memory=fast_memory,
+                goal_engine=goal_engine,
+                dash=dash,
+                inspector=inspector,
+                console=console,
+                max_steps=tier_max_steps,
+                render_dashboard=True,
+                step_delay=args.step_delay,
+            )
 
         output_path = inspector.render_html(export_path)
+        if args.persist:
+            matrix.save_graph("config/graph_memory.json")
+            
         summary = matrix.get_graph_summary()
 
         console.print()
@@ -914,7 +972,6 @@ def main() -> int:
         console=console,
         export_path=export_path,
     )
-
 
 if __name__ == "__main__":
     sys.exit(main())

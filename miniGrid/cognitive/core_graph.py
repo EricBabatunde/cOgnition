@@ -236,6 +236,7 @@ class CoreKnowledgeMatrix:
         start_pos: Tuple[int, int],
         target_pos: Tuple[int, int],
         known_inventory: Optional[List[str]] = None,
+        exclude_nodes: Optional[set[Tuple[int, int]]] = None,
     ) -> Optional[List[Tuple[int, int]]]:
         """Find the shortest traversable path using A* on the knowledge graph.
 
@@ -256,6 +257,9 @@ class CoreKnowledgeMatrix:
         """
         if known_inventory is None:
             known_inventory = []
+            
+        if exclude_nodes is None:
+            exclude_nodes = set()
 
         has_key = any("key" in item.lower() for item in known_inventory)
 
@@ -263,6 +267,11 @@ class CoreKnowledgeMatrix:
             data = self.graph.nodes.get(node, {})
             if data.get("node_type") != "SPATIAL":
                 return False
+                
+            pos = data.get("pos")
+            if pos and tuple(pos) in exclude_nodes:
+                return False
+                
             tile = data.get("tile_type", "UNKNOWN")
             if tile == "WALL":
                 return False
@@ -407,3 +416,39 @@ class CoreKnowledgeMatrix:
             "total_edges": self.graph.number_of_edges(),
             "node_type_counts": type_counts,
         }
+
+    # ────────────────────────────────────────────
+    #  Serialization
+    # ────────────────────────────────────────────
+
+    def save_graph(self, filepath: str = "config/graph_memory.json") -> None:
+        """Export current graph nodes, edges, attributes, and synthesized rules."""
+        import os
+        from networkx.readwrite import json_graph
+        
+        if not os.path.isabs(filepath):
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            filepath = os.path.join(base_dir, filepath)
+            
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        data = json_graph.node_link_data(self.graph, edges="edges")
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+
+    def load_graph(self, filepath: str = "config/graph_memory.json") -> None:
+        """Load and reconstruct graph nodes and synthesized rules from disk."""
+        import os
+        from networkx.readwrite import json_graph
+        
+        if not os.path.isabs(filepath):
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            filepath = os.path.join(base_dir, filepath)
+            
+        if not os.path.exists(filepath):
+            return
+            
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            
+        edge_kwarg = "edges" if "edges" in data else "links"
+        self.graph = json_graph.node_link_graph(data, edges=edge_kwarg)
