@@ -22,6 +22,7 @@ Target: Python 3.10  |  Platform: Linux (termios)
 
 from __future__ import annotations
 
+import argparse
 import os
 import select
 import sys
@@ -423,6 +424,7 @@ def run_autonomous_loop(
     console: Console,
     max_steps: int = 200,
     render_dashboard: bool = True,
+    step_delay: float = 0.25,
 ) -> Dict[str, Any]:
     """Fully autonomous cognitive execution loop.
 
@@ -594,7 +596,8 @@ def run_autonomous_loop(
 
             if render_dashboard:
                 live.update(_refresh_dashboard())
-            time.sleep(0.02)
+                if step_delay > 0:
+                    time.sleep(step_delay)
 
     elapsed = time.perf_counter() - t_start
 
@@ -615,17 +618,17 @@ def run_autonomous_loop(
 # Manual interactive loop
 # ──────────────────────────────────────────────
 
-def run_manual_loop() -> int:
+def run_manual_loop(
+    env: CustomRPGEnv,
+    matrix: CoreKnowledgeMatrix,
+    symbolic_engine: SymbolicLogicEngine,
+    fast_memory: FastPlasticityMemory,
+    dash: TerminalDashboard,
+    inspector: WebMindInspector,
+    console: Console,
+    export_path: str = "graph_mind.html"
+) -> int:
     """Run the interactive teleop loop."""
-    console = Console()
-    env = CustomRPGEnv()
-    dash = TerminalDashboard()
-    matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
-    inspector = WebMindInspector(matrix)
-
-    symbolic_engine = SymbolicLogicEngine()
-    fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
-    symbolic_engine.load_rules_from_config("config/innate_instincts.json")
 
     obs, info = env.reset(seed=42)
     ps = obs["player_state"]
@@ -806,7 +809,7 @@ def run_manual_loop() -> int:
         termios.tcsetattr(fd, termios.TCSADRAIN, original_term)
 
     # ── Export knowledge graph ──
-    output_path = inspector.render_html("graph_mind.html")
+    output_path = inspector.render_html(export_path)
     summary = matrix.get_graph_summary()
 
     console.print()
@@ -834,18 +837,35 @@ def run_manual_loop() -> int:
 # ──────────────────────────────────────────────
 
 def main() -> int:
-    """Dual-mode entry point: --auto for autonomous, default for manual."""
-    if "--auto" in sys.argv:
-        console = Console()
-        env = CustomRPGEnv()
-        dash = TerminalDashboard()
-        matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
-        inspector = WebMindInspector(matrix)
-        symbolic_engine = SymbolicLogicEngine()
-        symbolic_engine.load_rules_from_config("config/innate_instincts.json")
-        fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
-        goal_engine = ExecutiveGoalEngine(matrix, symbolic_engine)
+    """Dual-mode entry point: parsed via argparse."""
+    parser = argparse.ArgumentParser(description="Neuro-Symbolic RPG Cognitive Engine")
+    parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=1,
+                        help="Selects map tier layout (1: 10x10, 2: 15x15, 3: 20x20)")
+    parser.add_argument("--step-delay", type=float, default=0.25,
+                        help="Seconds to pause between ticks for UI visibility")
+    parser.add_argument("--autonomous", action=argparse.BooleanOptionalAction, default=True,
+                        help="Enables hands-off neuro-symbolic solver")
+    parser.add_argument("--export-graph", type=str, default=None,
+                        help="Path to export PyVis HTML graph")
+    
+    args = parser.parse_args()
 
+    export_path = args.export_graph
+    if not export_path:
+        export_path = f"graph_mind_tier_{args.tier}.html"
+
+    console = Console()
+    env = CustomRPGEnv(tier=args.tier)
+    dash = TerminalDashboard()
+    matrix = CoreKnowledgeMatrix("config/innate_instincts.json")
+    inspector = WebMindInspector(matrix)
+    
+    symbolic_engine = SymbolicLogicEngine()
+    symbolic_engine.load_rules_from_config("config/innate_instincts.json")
+    fast_memory = FastPlasticityMemory(dimension=64, capacity=1000)
+
+    if args.autonomous:
+        goal_engine = ExecutiveGoalEngine(matrix, symbolic_engine)
         telemetry = run_autonomous_loop(
             env=env,
             matrix=matrix,
@@ -857,9 +877,10 @@ def main() -> int:
             console=console,
             max_steps=200,
             render_dashboard=True,
+            step_delay=args.step_delay,
         )
 
-        output_path = inspector.render_html("graph_mind.html")
+        output_path = inspector.render_html(export_path)
         summary = matrix.get_graph_summary()
 
         console.print()
@@ -869,6 +890,7 @@ def main() -> int:
         console.print(f"  [bold]Final HP:[/bold]        {telemetry['final_hp']}")
         console.print(f"  [bold]Safety Blocks:[/bold]   {telemetry['safety_blocks']}")
         console.print(f"  [bold]Reflections:[/bold]     {telemetry['reflection_cycles']}")
+        console.print(f"  [bold]Rules Learned:[/bold]   {telemetry.get('rules_synthesized', 0)}")
         console.print(f"  [bold]FAISS Vectors:[/bold]   {telemetry['faiss_count']}")
         console.print(f"  [bold]Elapsed:[/bold]         {telemetry['elapsed_seconds']:.2f}s")
         console.print(
@@ -882,7 +904,16 @@ def main() -> int:
         console.print()
         return 0
 
-    return run_manual_loop()
+    return run_manual_loop(
+        env=env,
+        matrix=matrix,
+        symbolic_engine=symbolic_engine,
+        fast_memory=fast_memory,
+        dash=dash,
+        inspector=inspector,
+        console=console,
+        export_path=export_path,
+    )
 
 
 if __name__ == "__main__":
