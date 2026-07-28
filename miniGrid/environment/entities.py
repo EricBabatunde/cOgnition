@@ -45,12 +45,16 @@ class TileType(IntEnum):
     """Tile classification codes used in the grid map.
 
     Values:
-        EMPTY:  Passable open floor.
-        WALL:   Impassable boundary or obstacle.
-        DOOR:   May be locked; requires matching key to toggle.
-        KEY:    Collectible item that unlocks a corresponding door.
-        HAZARD: Deals damage on contact (e.g. lava, spikes).
-        GOAL:   Level objective; reaching it ends the episode.
+        EMPTY:          Passable open floor.
+        WALL:           Impassable boundary or obstacle.
+        DOOR:           May be locked; requires matching key to toggle.
+        KEY:            Collectible item that unlocks a corresponding door.
+        HAZARD:         Deals damage on contact (e.g. lava, spikes).
+        GOAL:           Level objective; reaching it ends the episode.
+        UNMAPPED_TRAP:  Hidden trap not in innate instincts; deals damage.
+        LEVER:          Toggleable switch that removes a linked wall barrier.
+        PRESSURE_PLATE: Step-activated plate that removes a linked barrier.
+        DECOY_CHEST:    Fake goal chest; no reward on contact.
     """
 
     EMPTY = 0
@@ -59,6 +63,10 @@ class TileType(IntEnum):
     KEY = 3
     HAZARD = 4
     GOAL = 5
+    UNMAPPED_TRAP = 6
+    LEVER = 7
+    PRESSURE_PLATE = 8
+    DECOY_CHEST = 9
 
 
 # Sentinel value for unexplored / fog-of-war tiles in observations.
@@ -75,6 +83,7 @@ class Entity:
         is_locked: Whether this entity blocks passage (doors only).
         item_id:   Unique string linking keys to their matching doors.
         damage:    HP damage inflicted when the player steps on this tile.
+        linked_id: Identifier linking this entity to another (lever → barrier).
     """
 
     type: TileType
@@ -82,6 +91,7 @@ class Entity:
     is_locked: bool = False
     item_id: str = ""
     damage: int = 0
+    linked_id: str = ""
 
 
 @dataclass
