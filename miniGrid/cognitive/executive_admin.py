@@ -131,12 +131,55 @@ class ExecutiveGoalEngine:
                                 SubGoal(GoalType.REACH_EXIT, goal_pos, target_entity=goal_id)
                             ]
         
-        # 3. Fallback: Explore frontier
+        # 3. Fallback: Explore fog frontier
         frontier_pos = self._find_frontier(current_pos, inventory)
         if frontier_pos:
             return [SubGoal(GoalType.EXPLORE_FRONTIER, frontier_pos)]
-            
+
+        # 4. No fog frontier → try unlocking a door to reach new areas
+        door_result = self._find_locked_door_frontier(current_pos, inventory, has_key)
+        if door_result:
+            return door_result
+
         return []
+
+    def _find_locked_door_frontier(
+        self,
+        current_pos: Tuple[int, int],
+        inventory: List[str],
+        has_key: bool,
+    ) -> Optional[List[SubGoal]]:
+        """Find a locked door and plan to unlock it for further exploration."""
+        for node_id, data in self.matrix.graph.nodes(data=True):
+            if data.get("node_type") != "SPATIAL" or data.get("tile_type") != "DOOR":
+                continue
+            pos = data.get("pos")
+            if not pos:
+                continue
+
+            # Check if we can path to the tile adjacent to the door (using keys)
+            # We need to reach a tile next to the door, face it, and toggle.
+            path_to_door = self.matrix.find_topological_path(
+                current_pos, pos, inventory + ["key_simulated"],
+            )
+            if not path_to_door:
+                continue
+
+            if has_key:
+                return [
+                    SubGoal(GoalType.UNLOCK_DOOR, pos),
+                    SubGoal(GoalType.EXPLORE_FRONTIER, pos),
+                ]
+            else:
+                key_entity = self._find_entity_pos("KEY")
+                if key_entity:
+                    key_pos, key_id = key_entity
+                    return [
+                        SubGoal(GoalType.FETCH_KEY, key_pos, target_entity=key_id),
+                        SubGoal(GoalType.UNLOCK_DOOR, pos),
+                        SubGoal(GoalType.EXPLORE_FRONTIER, pos),
+                    ]
+        return None
 
     def compile_execution_plan(
         self,

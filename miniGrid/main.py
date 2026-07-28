@@ -159,17 +159,25 @@ _DIR_SYMBOL: dict[Direction, str] = {
 # ──────────────────────────────────────────────
 
 _TILE_ENTITY_TYPE: Dict[int, str] = {
-    TileType.KEY:    "KEY",
-    TileType.DOOR:   "DOOR",
-    TileType.HAZARD: "HAZARD",
-    TileType.GOAL:   "GOAL",
+    TileType.KEY:            "KEY",
+    TileType.DOOR:           "DOOR",
+    TileType.HAZARD:         "HAZARD",
+    TileType.GOAL:           "GOAL",
+    TileType.UNMAPPED_TRAP:  "UNMAPPED_TRAP",
+    TileType.LEVER:          "LEVER",
+    TileType.PRESSURE_PLATE: "PRESSURE_PLATE",
+    TileType.DECOY_CHEST:    "DECOY_CHEST",
 }
 
 _TILE_ENTITY_PREFIX: Dict[int, str] = {
-    TileType.KEY:    "Key",
-    TileType.DOOR:   "Door",
-    TileType.HAZARD: "Hazard",
-    TileType.GOAL:   "Goal",
+    TileType.KEY:            "Key",
+    TileType.DOOR:           "Door",
+    TileType.HAZARD:         "Hazard",
+    TileType.GOAL:           "Goal",
+    TileType.UNMAPPED_TRAP:  "Trap",
+    TileType.LEVER:          "Lever",
+    TileType.PRESSURE_PLATE: "Plate",
+    TileType.DECOY_CHEST:    "Decoy",
 }
 
 
@@ -219,6 +227,10 @@ def get_forward_tile_context(env: CustomRPGEnv, obs: Dict[str, Any]) -> Dict[str
         "is_hazard": tile_type == TileType.HAZARD,
         "is_door": tile_type == TileType.DOOR,
         "is_locked": tile_type == TileType.DOOR and door_is_locked,
+        "is_unmapped_trap": tile_type == TileType.UNMAPPED_TRAP,
+        "is_lever": tile_type == TileType.LEVER,
+        "is_pressure_plate": tile_type == TileType.PRESSURE_PLATE,
+        "is_decoy_chest": tile_type == TileType.DECOY_CHEST,
         "has_key": has_key,
         "target_tile": tile_type.name,
     }
@@ -229,21 +241,75 @@ def get_forward_tile_context(env: CustomRPGEnv, obs: Dict[str, Any]) -> Dict[str
 # ──────────────────────────────────────────────
 
 def trigger_sleep_consolidation(
-    fast_memory: FastPlasticityMemory, 
-    matrix: CoreKnowledgeMatrix, 
+    fast_memory: FastPlasticityMemory,
+    matrix: CoreKnowledgeMatrix,
     dashboard: TerminalDashboard,
-    novelty: float
-) -> None:
-    """Offline reflection cycle triggered by high prediction error."""
+    novelty: float,
+    hp_before: Optional[int] = None,
+    hp_after: Optional[int] = None,
+) -> int:
+    """Offline reflection cycle triggered by high prediction error.
+
+    When a health drop is detected between ``hp_before`` and ``hp_after``,
+    the most recent experience is inspected.  If the tile that caused the
+    damage is *not* already known to be dangerous (i.e. not HAZARD), a
+    new causal rule ``CAUSES_DAMAGE`` is synthesized and written as a
+    permanent edge in the Core Knowledge Matrix.
+
+    Returns:
+        Number of new causal rules synthesized during this cycle.
+    """
     recent_experiences = fast_memory.get_recent_experiences(5)
-    
+    rules_synthesized = 0
+
     for exp in recent_experiences:
         ps = exp.state_dict
         px, py = ps.get("position", (0, 0))
-        # Ensure corresponding topological nodes exist in CoreKnowledgeMatrix
         matrix.add_spatial_node(px, py, "EMPTY", explored=True)
-        
-    dashboard.add_log(f"🧠 [REFLECTION CYCLE] High Prediction Error (ΔE={novelty:.2f}) -> Consolidated {len(recent_experiences)} RAM nodes into Core Graph")
+
+    # ── Causal rule synthesis on HP drop ──
+    if (hp_before is not None and hp_after is not None
+            and hp_after < hp_before and recent_experiences):
+        last_exp = recent_experiences[-1]
+        damage_tile = last_exp.state_dict.get("target_tile", "UNKNOWN")
+        tile_pos = last_exp.state_dict.get("position", (0, 0))
+
+        # Only synthesize if we don't already have a CAUSES_DAMAGE rule
+        # for this specific tile node.
+        tile_node = f"Tile_{tile_pos[0]}_{tile_pos[1]}"
+        already_known = False
+        if matrix.graph.has_node(tile_node):
+            for _, _, edata in matrix.graph.edges(tile_node, data=True):
+                if edata.get("relation") == "CAUSES_DAMAGE":
+                    already_known = True
+                    break
+
+        if not already_known:
+            # Write permanent causal edge
+            damage_entity = f"DamageRule_{damage_tile}_{tile_pos[0]}_{tile_pos[1]}"
+            matrix.add_entity_node(damage_entity, "CAUSAL_RULE", {
+                "tile_type": damage_tile,
+                "location": f"({tile_pos[0]},{tile_pos[1]})",
+                "damage": hp_before - hp_after,
+            })
+            matrix.add_typed_edge(tile_node, damage_entity, "CAUSES_DAMAGE")
+
+            # Also mark the spatial node as hazardous so pathfinding avoids it
+            node_data = matrix.graph.nodes.get(tile_node, {})
+            matrix.graph.nodes[tile_node]["tile_type"] = "HAZARD"
+
+            rules_synthesized += 1
+            dashboard.add_log(
+                f"🧬 [RULE SYNTHESIS] {damage_tile} @ ({tile_pos[0]},{tile_pos[1]}) "
+                f"→ CAUSES_DAMAGE ({hp_before - hp_after} HP)"
+            )
+
+    dashboard.add_log(
+        f"🧠 [REFLECTION] ΔE={novelty:.2f} → "
+        f"Consolidated {len(recent_experiences)} nodes, "
+        f"{rules_synthesized} new causal rules"
+    )
+    return rules_synthesized
 
 
 # ──────────────────────────────────────────────
@@ -375,10 +441,12 @@ def run_autonomous_loop(
     step_count = 0
     safety_blocks = 0
     reflection_cycles = 0
+    rules_synthesized = 0
     current_novelty = 0.0
     current_weight = 1.0
     engine_state = "AUTONOMOUS"
     action_queue: List[str] = []
+    prev_hp: int = ps["health"]
 
     t_start = time.perf_counter()
 
@@ -423,9 +491,11 @@ def run_autonomous_loop(
 
             # ── Step 2: Reflection trigger on high ΔE ──
             if current_novelty >= 0.50:
-                trigger_sleep_consolidation(
-                    fast_memory, matrix, dash, current_novelty
+                new_rules = trigger_sleep_consolidation(
+                    fast_memory, matrix, dash, current_novelty,
+                    hp_before=prev_hp, hp_after=ps["health"],
                 )
+                rules_synthesized += new_rules
                 reflection_cycles += 1
                 action_queue.clear()  # Invalidate stale plan
 
@@ -475,9 +545,11 @@ def run_autonomous_loop(
                     continue
 
             # ── Step 5: Execute valid action ──
+            hp_before_step = ps["health"]
             obs, reward, terminated, truncated, info = env.step(action)
             ps = obs["player_state"]
             step_count = info["step_count"]
+            hp_after_step = ps["health"]
 
             # Cache experience & reinforce
             exp = fast_memory.store_experience(
@@ -489,6 +561,20 @@ def run_autonomous_loop(
                 fast_memory.reinforce_hebbian(tile, action.name, reward)
 
             update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos)
+
+            # ── Step 5b: Immediate HP-drop reflection ──
+            if hp_after_step < hp_before_step:
+                new_rules = trigger_sleep_consolidation(
+                    fast_memory, matrix, dash,
+                    novelty=1.0,
+                    hp_before=hp_before_step,
+                    hp_after=hp_after_step,
+                )
+                rules_synthesized += new_rules
+                reflection_cycles += 1
+                action_queue.clear()
+
+            prev_hp = hp_after_step
 
             # ── Step 6: Terminal detection ──
             hp = ps["health"]
@@ -516,6 +602,7 @@ def run_autonomous_loop(
         "total_steps": step_count,
         "safety_blocks": safety_blocks,
         "reflection_cycles": reflection_cycles,
+        "rules_synthesized": rules_synthesized,
         "elapsed_seconds": elapsed,
         "engine_state": engine_state,
         "final_hp": ps["health"],
