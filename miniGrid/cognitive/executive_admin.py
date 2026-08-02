@@ -132,17 +132,44 @@ class ExecutiveGoalEngine:
                         break
                 
                 if door_pos:
-                    if has_key:
+                    # Determine door color
+                    door_color = None
+                    door_node_id = f"Tile_{door_pos[0]}_{door_pos[1]}"
+                    for _, target, edge_data in self.matrix.graph.edges(door_node_id, data=True):
+                        if edge_data.get("relation") == "CONTAINS" and target.startswith("Door_"):
+                            color_part = target.split("_")[1].lower()
+                            if not color_part.isdigit():
+                                door_color = color_part
+                                break
+                            
+                    required_key = f"key_{door_color}" if door_color else None
+                    has_correct_key = required_key in [k.lower() for k in inventory] if required_key else has_key
+                    
+                    if has_correct_key:
                         return [
                             SubGoal(GoalType.UNLOCK_DOOR, door_pos),
                             SubGoal(GoalType.REACH_EXIT, goal_pos, target_entity=goal_id)
                         ]
                     else:
-                        key_entity = self._find_entity_pos("KEY")
-                        if key_entity:
-                            key_pos, key_id = key_entity
+                        target_key_id = f"Key_{door_color}" if door_color else None
+                        key_pos = None
+                        key_id_found = None
+                        
+                        for node_id, data in self.matrix.graph.nodes(data=True):
+                            if data.get("node_type") == "ENTITY" and data.get("entity_type") == "KEY":
+                                if target_key_id and not node_id.lower().startswith(target_key_id.lower()):
+                                    continue
+                                loc_str = data.get("location")
+                                if loc_str:
+                                    pos = self._parse_location(loc_str)
+                                    if pos:
+                                        key_pos = pos
+                                        key_id_found = node_id
+                                        break
+                                        
+                        if key_pos:
                             return [
-                                SubGoal(GoalType.FETCH_KEY, key_pos, target_entity=key_id),
+                                SubGoal(GoalType.FETCH_KEY, key_pos, target_entity=key_id_found),
                                 SubGoal(GoalType.UNLOCK_DOOR, door_pos),
                                 SubGoal(GoalType.REACH_EXIT, goal_pos, target_entity=goal_id)
                             ]
@@ -169,6 +196,8 @@ class ExecutiveGoalEngine:
         for node_id, data in self.matrix.graph.nodes(data=True):
             if data.get("node_type") != "SPATIAL" or data.get("tile_type") != "DOOR":
                 continue
+            if not data.get("is_locked", True):
+                continue
             pos = data.get("pos")
             if not pos:
                 continue
@@ -181,17 +210,44 @@ class ExecutiveGoalEngine:
             if not path_to_door:
                 continue
 
-            if has_key:
+            # Determine door color
+            door_color = None
+            door_node_id = f"Tile_{pos[0]}_{pos[1]}"
+            for _, target, edge_data in self.matrix.graph.edges(door_node_id, data=True):
+                if edge_data.get("relation") == "CONTAINS" and target.startswith("Door_"):
+                    color_part = target.split("_")[1].lower()
+                    if not color_part.isdigit():
+                        door_color = color_part
+                        break
+                    
+            required_key = f"key_{door_color}" if door_color else None
+            has_correct_key = required_key in [k.lower() for k in inventory] if required_key else has_key
+            
+            if has_correct_key:
                 return [
                     SubGoal(GoalType.UNLOCK_DOOR, pos),
                     SubGoal(GoalType.EXPLORE_FRONTIER, pos),
                 ]
             else:
-                key_entity = self._find_entity_pos("KEY")
-                if key_entity:
-                    key_pos, key_id = key_entity
+                target_key_id = f"Key_{door_color}" if door_color else None
+                key_pos = None
+                key_id_found = None
+                
+                for n_id, n_data in self.matrix.graph.nodes(data=True):
+                    if n_data.get("node_type") == "ENTITY" and n_data.get("entity_type") == "KEY":
+                        if target_key_id and not n_id.lower().startswith(target_key_id.lower()):
+                            continue
+                        loc_str = n_data.get("location")
+                        if loc_str:
+                            k_pos = self._parse_location(loc_str)
+                            if k_pos:
+                                key_pos = k_pos
+                                key_id_found = n_id
+                                break
+                                
+                if key_pos:
                     return [
-                        SubGoal(GoalType.FETCH_KEY, key_pos, target_entity=key_id),
+                        SubGoal(GoalType.FETCH_KEY, key_pos, target_entity=key_id_found),
                         SubGoal(GoalType.UNLOCK_DOOR, pos),
                         SubGoal(GoalType.EXPLORE_FRONTIER, pos),
                     ]
@@ -249,8 +305,15 @@ class ExecutiveGoalEngine:
                 tile_type = next_node_data.get("tile_type", "")
                 
                 if tile_type in ("DOOR", "INTERACTIVE"):
-                    seq.append("TOGGLE_INTERACT")
-                    seq.append("MOVE_FORWARD")
+                    is_locked = next_node_data.get("is_locked", True)
+                    if is_locked:
+                        seq.append("TOGGLE_INTERACT")
+                        seq.append("MOVE_FORWARD")
+                        self.matrix.unlock_door_node((next_r, next_c))
+                        if (next_r, next_c) in self.blocked_nodes:
+                            self.blocked_nodes.remove((next_r, next_c))
+                    else:
+                        seq.append("MOVE_FORWARD")
                 else:
                     seq.append("MOVE_FORWARD")
                     

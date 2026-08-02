@@ -1,0 +1,237 @@
+──────────────── === STARTING RUN 1: EXPLORATION & LEARNING === ────────────────
+DEBUG 0: Planned EXPLORE_FRONTIER -> next action: TURN_RIGHT
+DEBUG 1: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 2: Planned EXPLORE_FRONTIER -> next action: MOVE_FORWARD
+DEBUG 6: Planned EXPLORE_FRONTIER -> next action: TURN_RIGHT
+DEBUG 9: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 13: Planned EXPLORE_FRONTIER -> next action: TURN_RIGHT
+DEBUG 16: Planned EXPLORE_FRONTIER -> next action: TURN_RIGHT
+DEBUG 23: Planned EXPLORE_FRONTIER -> next action: TURN_RIGHT
+DEBUG 33: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 47: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 50: Planned EXPLORE_FRONTIER -> next action: MOVE_FORWARD
+DEBUG 54: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 57: Planned EXPLORE_FRONTIER -> next action: MOVE_FORWARD
+DEBUG 61: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 64: Planned FETCH_KEY, UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 93: Planned EXPLORE_FRONTIER -> next action: MOVE_FORWARD
+DEBUG 98: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 102: Planned EXPLORE_FRONTIER -> next action: TURN_RIGHT
+DEBUG 105: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 109: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 114: Planned EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 122: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 125: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: TURN_LEFT
+DEBUG 134: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 135: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 136: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 137: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 138: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 139: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 140: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 141: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 142: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 143: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 144: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 145: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 146: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 147: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 148: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 149: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 150: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 151: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 152: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 153: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 154: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 155: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 156: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 157: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 158: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 159: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 160: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 161: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 162: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 163: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 164: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 165: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 166: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 167: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 168: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 169: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 170: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 171: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 172: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 173: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 174: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 175: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 176: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 177: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 178: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 179: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 180: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 181: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 182: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 183: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 184: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 185: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 186: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 187: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 188: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 189: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 190: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 191: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 192: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 193: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 194: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 195: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 196: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 197: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 198: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 199: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 200: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 201: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 202: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 203: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 204: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 205: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 206: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 207: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 208: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 209: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 210: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 211: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 212: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 213: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 214: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 215: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 216: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 217: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 218: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 219: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 220: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 221: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 222: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 223: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 224: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 225: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 226: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 227: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 228: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 229: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 230: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 231: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 232: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 233: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 234: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 235: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 236: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 237: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 238: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 239: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 240: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 241: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 242: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 243: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 244: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 245: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 246: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 247: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 248: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 249: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 250: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 251: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 252: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 253: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 254: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 255: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 256: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 257: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 258: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 259: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 260: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 261: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 262: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 263: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 264: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 265: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 266: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 267: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 268: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 269: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 270: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 271: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 272: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 273: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 274: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 275: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 276: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 277: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 278: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 279: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 280: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 281: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 282: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 283: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 284: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 285: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 286: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 287: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 288: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 289: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 290: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 291: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 292: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 293: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 294: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 295: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 296: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 297: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 298: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 299: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 300: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 301: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 302: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 303: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 304: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 305: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 306: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 307: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 308: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 309: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 310: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 311: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 312: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 313: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 314: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 315: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 316: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 317: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 318: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 319: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 320: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 321: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 322: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 323: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 324: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 325: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 326: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 327: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 328: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 329: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 330: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 331: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 332: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 333: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 334: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 335: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 336: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 337: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 338: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 339: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 340: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 341: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 342: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 343: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 344: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 345: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None
+DEBUG 346: Planned UNLOCK_DOOR, EXPLORE_FRONTIER -> next action: None

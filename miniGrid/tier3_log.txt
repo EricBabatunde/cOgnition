@@ -1,0 +1,18 @@
+──────────────── === STARTING RUN 1: EXPLORATION & LEARNING === ────────────────
+───────────── === STARTING RUN 2: ZERO-SHOT ADAPTED TRAVERSAL === ──────────────
+
+────────────────────────── Autonomous Session Summary ──────────────────────────
+  Engine State:    TRUNCATED
+  Total Steps:     200
+  Final HP:        100
+  Safety Blocks:   0
+  Reflections:     3
+  Rules Learned:   0
+  FAISS Vectors:   200
+  Elapsed:         1.53s
+  Graph:          264 nodes, 525 edges  {'AXIOM': 5, 'SPATIAL': 245, 'ENTITY': 
+14}
+  [INFO] Knowledge Matrix exported → 
+/home/eric/Documents/projects/cognition/miniGrid/graph_mind_tier_3.html
+────────────────────────────────────────────────────────────────────────────────
+

@@ -45,7 +45,9 @@ STEP_PENALTY: float = -0.1
 GOAL_REWARD: float = 100.0
 
 # Default step limit — can be overridden at module level by tests
-MAX_STEPS: int = 200
+MAX_STEPS_TIER1: int = 100
+MAX_STEPS_TIER2: int = 500
+MAX_STEPS_TIER3: int = 2000
 
 
 class CustomRPGEnv(gymnasium.Env):
@@ -565,7 +567,8 @@ class CustomRPGEnv(gymnasium.Env):
                         self._remove_barrier(ent.linked_id)
 
         # ── Truncation check ─────────────────────────────
-        if self._step_count >= MAX_STEPS:
+        tier_max_steps = {1: MAX_STEPS_TIER1, 2: MAX_STEPS_TIER2, 3: MAX_STEPS_TIER3}.get(self.tier, 200)
+        if self._step_count >= tier_max_steps:
             truncated = True
 
         # ── Update fog-of-war ────────────────────────────

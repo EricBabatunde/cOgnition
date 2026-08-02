@@ -32,6 +32,13 @@
       "id": "hazard_avoidance"
     },
     {
+      "node_type": "AXIOM",
+      "premise": "InFront(Door) AND HasItem(MatchingKey)",
+      "conclusion": "AllowAction(TOGGLE_INTERACT)",
+      "confidence": 1.0,
+      "id": "door_interaction"
+    },
+    {
       "node_type": "SPATIAL",
       "pos": [
         1,
@@ -39,6 +46,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_1"
     },
     {
@@ -49,6 +58,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_1"
     },
     {
@@ -59,6 +70,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_2"
     },
     {
@@ -69,6 +82,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_3"
     },
     {
@@ -79,6 +94,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_4"
     },
     {
@@ -89,6 +106,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_5"
     },
     {
@@ -99,6 +118,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_2"
     },
     {
@@ -109,6 +130,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_3"
     },
     {
@@ -119,6 +142,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_4"
     },
     {
@@ -129,6 +154,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_5"
     },
     {
@@ -139,6 +166,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_1"
     },
     {
@@ -149,13 +178,16 @@
       ],
       "tile_type": "LEVER",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_2"
     },
     {
       "node_type": "ENTITY",
-      "entity_type": "KEY",
+      "entity_type": "LEVER",
       "location": "(2,2)",
-      "id": "Key_2_2"
+      "color": "green",
+      "id": "Lever_green_2_2"
     },
     {
       "node_type": "SPATIAL",
@@ -165,6 +197,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_3"
     },
     {
@@ -175,6 +209,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_4"
     },
     {
@@ -185,6 +221,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_5"
     },
     {
@@ -195,6 +233,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_1"
     },
     {
@@ -205,6 +245,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_2"
     },
     {
@@ -215,6 +257,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_3"
     },
     {
@@ -225,6 +269,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_4"
     },
     {
@@ -235,14 +281,16 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_5"
     },
     {
       "node_type": "ENTITY",
       "entity_type": "PLAYER",
-      "position": "(8,8)",
-      "direction": "EAST",
-      "health": 100,
+      "position": "(4,9)",
+      "direction": "NORTH",
+      "health": 80,
       "id": "Agent"
     },
     {
@@ -253,6 +301,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_1_0"
     },
     {
@@ -263,6 +313,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_2_0"
     },
     {
@@ -273,6 +325,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_3_0"
     },
     {
@@ -283,6 +337,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_4_0"
     },
     {
@@ -293,6 +349,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_1"
     },
     {
@@ -303,6 +361,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_2"
     },
     {
@@ -313,13 +373,9 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_3"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "HAZARD",
-      "location": "(4,3)",
-      "id": "Hazard_4_3"
     },
     {
       "node_type": "SPATIAL",
@@ -329,6 +385,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_5_0"
     },
     {
@@ -339,6 +397,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_1"
     },
     {
@@ -349,6 +409,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_2"
     },
     {
@@ -359,7 +421,16 @@
       ],
       "tile_type": "UNMAPPED_TRAP",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_3"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "UNMAPPED_TRAP",
+      "location": "(5,3)",
+      "color": "invisible",
+      "id": "Trap_invisible_5_3"
     },
     {
       "node_type": "SPATIAL",
@@ -369,6 +440,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_6"
     },
     {
@@ -379,6 +452,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_6"
     },
     {
@@ -389,6 +464,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_6"
     },
     {
@@ -399,7 +476,16 @@
       ],
       "tile_type": "KEY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_6"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "KEY",
+      "location": "(3,6)",
+      "color": "blue",
+      "id": "Key_blue_3_6"
     },
     {
       "node_type": "SPATIAL",
@@ -409,6 +495,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_7"
     },
     {
@@ -419,6 +507,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_7"
     },
     {
@@ -429,6 +519,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_7"
     },
     {
@@ -439,6 +531,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_7"
     },
     {
@@ -449,6 +543,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_8"
     },
     {
@@ -459,6 +555,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_8"
     },
     {
@@ -469,6 +567,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_8"
     },
     {
@@ -479,6 +579,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_8"
     },
     {
@@ -489,6 +591,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_0_9"
     },
     {
@@ -499,6 +603,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_1_9"
     },
     {
@@ -509,6 +615,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_2_9"
     },
     {
@@ -519,6 +627,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_3_9"
     },
     {
@@ -529,6 +639,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_4"
     },
     {
@@ -539,6 +651,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_5"
     },
     {
@@ -549,6 +663,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_6"
     },
     {
@@ -559,6 +675,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_7"
     },
     {
@@ -569,6 +687,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_4"
     },
     {
@@ -579,13 +699,9 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_5"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "DOOR",
-      "location": "(5,5)",
-      "id": "Door_5_5"
     },
     {
       "node_type": "SPATIAL",
@@ -595,6 +711,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_6"
     },
     {
@@ -605,6 +723,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_7"
     },
     {
@@ -615,6 +735,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_6_3"
     },
     {
@@ -625,6 +747,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_6_4"
     },
     {
@@ -635,6 +759,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_6_5"
     },
     {
@@ -645,7 +771,16 @@
       ],
       "tile_type": "DECOY_CHEST",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_6_6"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "DECOY_CHEST",
+      "location": "(6,6)",
+      "color": "gold",
+      "id": "Decoy_gold_6_6"
     },
     {
       "node_type": "SPATIAL",
@@ -655,6 +790,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_6_7"
     },
     {
@@ -665,6 +802,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_7_3"
     },
     {
@@ -675,7 +814,16 @@
       ],
       "tile_type": "HAZARD",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_7_4"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "HAZARD",
+      "location": "(7,4)",
+      "color": "orange",
+      "id": "Hazard_orange_7_4"
     },
     {
       "node_type": "SPATIAL",
@@ -685,6 +833,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_7_5"
     },
     {
@@ -695,6 +845,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_7_6"
     },
     {
@@ -705,6 +857,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_7_7"
     },
     {
@@ -715,6 +869,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_8"
     },
     {
@@ -725,7 +881,16 @@
       ],
       "tile_type": "DOOR",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_9"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "DOOR",
+      "location": "(4,9)",
+      "color": "red",
+      "id": "Door_red_4_9"
     },
     {
       "node_type": "SPATIAL",
@@ -735,6 +900,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_8"
     },
     {
@@ -745,217 +912,9 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_5_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        6,
-        8
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_6_8"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        6,
-        9
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_6_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        7,
-        8
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_7_8"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        7,
-        9
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_7_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        8,
-        6
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_8_6"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        8,
-        7
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_8_7"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        8,
-        8
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_8_8"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "GOAL",
-      "location": "(8,8)",
-      "id": "Goal_8_8"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        8,
-        9
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_8_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        9,
-        6
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_9_6"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        9,
-        7
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_9_7"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        9,
-        8
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_9_8"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        9,
-        9
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_9_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        6,
-        0
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_6_0"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        6,
-        1
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_6_1"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        6,
-        2
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_6_2"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        7,
-        0
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_7_0"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        7,
-        1
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_7_1"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        7,
-        2
-      ],
-      "tile_type": "EMPTY",
-      "explored": true,
-      "id": "Tile_7_2"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "LEVER",
-      "location": "(2,2)",
-      "id": "Lever_2_2"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "UNMAPPED_TRAP",
-      "location": "(5,3)",
-      "id": "Trap_5_3"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "KEY",
-      "location": "(3,6)",
-      "id": "Key_3_6"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "DOOR",
-      "location": "(4,9)",
-      "id": "Door_4_9"
     },
     {
       "node_type": "SPATIAL",
@@ -965,6 +924,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_1_10"
     },
     {
@@ -975,6 +936,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_2_10"
     },
     {
@@ -985,6 +948,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_3_10"
     },
     {
@@ -995,6 +960,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_10"
     },
     {
@@ -1005,6 +972,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_5_10"
     },
     {
@@ -1015,6 +984,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_11"
     },
     {
@@ -1025,6 +996,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_11"
     },
     {
@@ -1035,6 +1008,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_11"
     },
     {
@@ -1045,6 +1020,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_11"
     },
     {
@@ -1055,6 +1032,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_11"
     },
     {
@@ -1065,6 +1044,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_1_12"
     },
     {
@@ -1075,6 +1056,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_2_12"
     },
     {
@@ -1085,6 +1068,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_3_12"
     },
     {
@@ -1095,6 +1080,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_4_12"
     },
     {
@@ -1105,13 +1092,33 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_5_12"
     },
     {
-      "node_type": "ENTITY",
-      "entity_type": "DECOY_CHEST",
-      "location": "(6,6)",
-      "id": "Decoy_6_6"
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_6_9"
     },
     {
       "node_type": "SPATIAL",
@@ -1121,7 +1128,33 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_6_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_7_9"
     },
     {
       "node_type": "SPATIAL",
@@ -1131,7 +1164,57 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_7_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_8_9"
     },
     {
       "node_type": "SPATIAL",
@@ -1141,7 +1224,57 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_8_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        6
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        7
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        8
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_9"
     },
     {
       "node_type": "SPATIAL",
@@ -1151,169 +1284,69 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_9_10"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
-        10,
-        6
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_10_6"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        10,
-        7
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_10_7"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        10,
-        8
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_10_8"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        10,
-        9
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_10_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        10,
-        10
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_10_10"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        11,
-        6
+        6,
+        2
       ],
       "tile_type": "EMPTY",
       "explored": true,
-      "id": "Tile_11_6"
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_2"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
-        11,
-        7
+        7,
+        2
       ],
       "tile_type": "EMPTY",
       "explored": true,
-      "id": "Tile_11_7"
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_2"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
-        11,
-        8
+        6,
+        1
       ],
       "tile_type": "EMPTY",
       "explored": true,
-      "id": "Tile_11_8"
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_1"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
-        11,
-        9
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_11_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        11,
-        10
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_11_10"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        12,
-        6
+        7,
+        1
       ],
       "tile_type": "EMPTY",
       "explored": true,
-      "id": "Tile_12_6"
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_1"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
-        12,
-        7
-      ],
-      "tile_type": "UNMAPPED_TRAP",
-      "explored": true,
-      "id": "Tile_12_7"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "UNMAPPED_TRAP",
-      "location": "(12,7)",
-      "id": "Trap_12_7"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        12,
-        8
+        8,
+        3
       ],
       "tile_type": "EMPTY",
       "explored": true,
-      "id": "Tile_12_8"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        12,
-        9
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_12_9"
-    },
-    {
-      "node_type": "SPATIAL",
-      "pos": [
-        12,
-        10
-      ],
-      "tile_type": "WALL",
-      "explored": true,
-      "id": "Tile_12_10"
-    },
-    {
-      "node_type": "ENTITY",
-      "entity_type": "HAZARD",
-      "location": "(7,4)",
-      "id": "Hazard_7_4"
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_3"
     },
     {
       "node_type": "SPATIAL",
@@ -1323,6 +1356,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_8_4"
     },
     {
@@ -1333,7 +1368,21 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_8_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        3
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_3"
     },
     {
       "node_type": "SPATIAL",
@@ -1343,6 +1392,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_9_4"
     },
     {
@@ -1353,7 +1404,21 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_9_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        3
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_3"
     },
     {
       "node_type": "SPATIAL",
@@ -1363,6 +1428,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_10_4"
     },
     {
@@ -1373,7 +1440,1538 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_10_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        6
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        7
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        1
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        2
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_6_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_7_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_8_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        1
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        2
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_11_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_12_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        8
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        7
+      ],
+      "tile_type": "UNMAPPED_TRAP",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_7"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "UNMAPPED_TRAP",
+      "location": "(12,7)",
+      "color": "invisible",
+      "id": "Trap_invisible_12_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        3
+      ],
+      "tile_type": "PRESSURE_PLATE",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_3"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "PRESSURE_PLATE",
+      "location": "(13,3)",
+      "color": "gray",
+      "id": "Plate_gray_13_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_3"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "KEY",
+      "location": "(15,3)",
+      "color": "red",
+      "id": "Key_red_15_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_13_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_14_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_15_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_16_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        2
+      ],
+      "tile_type": "DECOY_CHEST",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_2"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "DECOY_CHEST",
+      "location": "(16,2)",
+      "color": "gold",
+      "id": "Decoy_gold_16_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_17_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_18_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        1
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        2
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        3
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        4
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        0
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_0"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        1
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_1"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        2
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_2"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        3
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_3"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        4
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_4"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        5
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        6
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        5
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_5"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        6
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_6"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        7
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        7
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_7"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        8
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_15_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_16_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_17_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_18_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_15_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_16_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_17_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_18_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        11
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        11
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        15,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_15_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        16,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_16_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        17,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_17_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        18,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_18_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        19,
+        12
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_19_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_13_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_13_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        13,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_13_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        9
+      ],
+      "tile_type": "DOOR",
+      "explored": true,
+      "is_locked": true,
+      "traversable": true,
+      "id": "Tile_14_9"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "DOOR",
+      "location": "(14,9)",
+      "color": "blue",
+      "id": "Door_blue_14_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        14,
+        10
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_14_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_12_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_12_10"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        8
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_8"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        9
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_11_9"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_11_10"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "ITEM",
+      "held": true,
+      "id": "key_red"
     },
     {
       "node_type": "SPATIAL",
@@ -1383,6 +2981,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_6_11"
     },
     {
@@ -1393,7 +2993,196 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_6_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_2_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_3_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_4_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_5_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_2_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        14
+      ],
+      "tile_type": "UNMAPPED_TRAP",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_3_14"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "UNMAPPED_TRAP",
+      "location": "(3,14)",
+      "color": "invisible",
+      "id": "Trap_invisible_3_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_4_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_5_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_2_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_3_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_4_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_5_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_15"
     },
     {
       "node_type": "SPATIAL",
@@ -1403,6 +3192,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_7_11"
     },
     {
@@ -1413,7 +3204,21 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_7_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_13"
     },
     {
       "node_type": "SPATIAL",
@@ -1423,6 +3228,8 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_8_11"
     },
     {
@@ -1433,7 +3240,21 @@
       ],
       "tile_type": "EMPTY",
       "explored": true,
+      "is_locked": false,
+      "traversable": true,
       "id": "Tile_8_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_13"
     },
     {
       "node_type": "SPATIAL",
@@ -1443,6 +3264,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_9_11"
     },
     {
@@ -1453,7 +3276,33 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_9_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        13
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_10"
     },
     {
       "node_type": "SPATIAL",
@@ -1463,6 +3312,8 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_10_11"
     },
     {
@@ -1473,37 +3324,896 @@
       ],
       "tile_type": "WALL",
       "explored": true,
+      "is_locked": false,
+      "traversable": false,
       "id": "Tile_10_12"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
-        8,
-        3
+        10,
+        13
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        14
       ],
       "tile_type": "EMPTY",
       "explored": true,
-      "id": "Tile_8_3"
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_4_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_5_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_4_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_5_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_4_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_5_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_6_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_7_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_8_18"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
         9,
-        3
+        14
       ],
       "tile_type": "WALL",
       "explored": true,
-      "id": "Tile_9_3"
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        15
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        16
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_16"
     },
     {
       "node_type": "SPATIAL",
       "pos": [
         10,
-        3
+        14
       ],
       "tile_type": "WALL",
       "explored": true,
-      "id": "Tile_10_3"
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        15
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        16
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        13
+      ],
+      "tile_type": "HAZARD",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_11_13"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "HAZARD",
+      "location": "(11,13)",
+      "color": "orange",
+      "id": "Hazard_orange_11_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        11,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_11_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        12
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        12,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_12_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        17
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        18
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        17
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        18
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        6,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_6_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        7,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_7_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        8,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_8_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        9,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_9_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        10,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_10_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        4,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_4_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        5,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_5_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_3_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_3_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_3_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        3,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_3_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_2_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_2_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_2_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        2,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_2_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        15
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_1_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        16
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_1_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        17
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_1_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        18
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_1_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_1_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        15
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_15"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        16
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_16"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        17
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_17"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        18
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_18"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        19
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_19"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        13
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        14
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        13
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_1_13"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        1,
+        14
+      ],
+      "tile_type": "EMPTY",
+      "explored": true,
+      "is_locked": false,
+      "traversable": true,
+      "id": "Tile_1_14"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        11
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_11"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        12
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_12"
+    },
+    {
+      "node_type": "SPATIAL",
+      "pos": [
+        0,
+        10
+      ],
+      "tile_type": "WALL",
+      "explored": true,
+      "is_locked": false,
+      "traversable": false,
+      "id": "Tile_0_10"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "CAUSAL_RULE",
+      "tile_type": "UNMAPPED_TRAP",
+      "location": "(3,14)",
+      "damage": 20,
+      "id": "DamageRule_UNMAPPED_TRAP_3_14"
+    },
+    {
+      "node_type": "ENTITY",
+      "entity_type": "CAUSAL_RULE",
+      "tile_type": "UNMAPPED_TRAP",
+      "location": "(5,3)",
+      "damage": 20,
+      "id": "DamageRule_UNMAPPED_TRAP_5_3"
     }
   ],
   "edges": [
@@ -1613,7 +4323,7 @@
       "relation": "CONTAINS",
       "weight": 1.0,
       "source": "Tile_2_2",
-      "target": "Key_2_2"
+      "target": "Lever_green_2_2"
     },
     {
       "relation": "CONNECTS_TO",
@@ -1638,12 +4348,6 @@
       "weight": 1.0,
       "source": "Tile_2_2",
       "target": "Tile_2_3"
-    },
-    {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_2_2",
-      "target": "Lever_2_2"
     },
     {
       "relation": "CONNECTS_TO",
@@ -1832,6 +4536,12 @@
       "target": "Tile_4_5"
     },
     {
+      "relation": "IN_INVENTORY",
+      "weight": 1.0,
+      "source": "Agent",
+      "target": "key_red"
+    },
+    {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_4_1",
@@ -1872,12 +4582,6 @@
       "weight": 1.0,
       "source": "Tile_4_2",
       "target": "Tile_4_3"
-    },
-    {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_4_3",
-      "target": "Hazard_4_3"
     },
     {
       "relation": "CONNECTS_TO",
@@ -1946,6 +4650,12 @@
       "target": "Tile_6_2"
     },
     {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_5_3",
+      "target": "Trap_invisible_5_3"
+    },
+    {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_5_3",
@@ -1970,10 +4680,10 @@
       "target": "Tile_6_3"
     },
     {
-      "relation": "CONTAINS",
+      "relation": "CAUSES_DAMAGE",
       "weight": 1.0,
       "source": "Tile_5_3",
-      "target": "Trap_5_3"
+      "target": "DamageRule_UNMAPPED_TRAP_5_3"
     },
     {
       "relation": "CONNECTS_TO",
@@ -2018,6 +4728,12 @@
       "target": "Tile_2_7"
     },
     {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_3_6",
+      "target": "Key_blue_3_6"
+    },
+    {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_3_6",
@@ -2040,12 +4756,6 @@
       "weight": 1.0,
       "source": "Tile_3_6",
       "target": "Tile_4_6"
-    },
-    {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_3_6",
-      "target": "Key_3_6"
     },
     {
       "relation": "CONNECTS_TO",
@@ -2282,12 +4992,6 @@
       "target": "Tile_6_4"
     },
     {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_5_5",
-      "target": "Door_5_5"
-    },
-    {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_5_5",
@@ -2432,6 +5136,12 @@
       "target": "Tile_7_5"
     },
     {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_6_6",
+      "target": "Decoy_gold_6_6"
+    },
+    {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_6_6",
@@ -2454,12 +5164,6 @@
       "weight": 1.0,
       "source": "Tile_6_6",
       "target": "Tile_7_6"
-    },
-    {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_6_6",
-      "target": "Decoy_6_6"
     },
     {
       "relation": "CONNECTS_TO",
@@ -2510,6 +5214,12 @@
       "target": "Tile_8_3"
     },
     {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_7_4",
+      "target": "Hazard_orange_7_4"
+    },
+    {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_7_4",
@@ -2526,12 +5236,6 @@
       "weight": 1.0,
       "source": "Tile_7_4",
       "target": "Tile_7_5"
-    },
-    {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_7_4",
-      "target": "Hazard_7_4"
     },
     {
       "relation": "CONNECTS_TO",
@@ -2639,7 +5343,7 @@
       "relation": "CONTAINS",
       "weight": 1.0,
       "source": "Tile_4_9",
-      "target": "Door_4_9"
+      "target": "Door_red_4_9"
     },
     {
       "relation": "CONNECTS_TO",
@@ -2670,168 +5374,6 @@
       "weight": 1.0,
       "source": "Tile_5_8",
       "target": "Tile_6_8"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_8",
-      "target": "Tile_5_8"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_8",
-      "target": "Tile_7_8"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_8",
-      "target": "Tile_6_7"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_8",
-      "target": "Tile_6_8"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_8",
-      "target": "Tile_7_7"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_8",
-      "target": "Tile_8_8"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_6",
-      "target": "Tile_7_6"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_6",
-      "target": "Tile_8_7"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_6",
-      "target": "Tile_8_5"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_7",
-      "target": "Tile_7_7"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_7",
-      "target": "Tile_8_6"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_7",
-      "target": "Tile_8_8"
-    },
-    {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_8_8",
-      "target": "Goal_8_8"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_8",
-      "target": "Tile_7_8"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_8_8",
-      "target": "Tile_8_7"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_1",
-      "target": "Tile_5_1"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_1",
-      "target": "Tile_6_2"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_1",
-      "target": "Tile_7_1"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_2",
-      "target": "Tile_5_2"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_2",
-      "target": "Tile_6_1"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_2",
-      "target": "Tile_6_3"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_6_2",
-      "target": "Tile_7_2"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_1",
-      "target": "Tile_6_1"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_1",
-      "target": "Tile_7_2"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_2",
-      "target": "Tile_6_2"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_2",
-      "target": "Tile_7_1"
-    },
-    {
-      "relation": "CONNECTS_TO",
-      "weight": 1.0,
-      "source": "Tile_7_2",
-      "target": "Tile_7_3"
     },
     {
       "relation": "CONNECTS_TO",
@@ -2950,6 +5492,12 @@
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
+      "source": "Tile_1_12",
+      "target": "Tile_1_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
       "source": "Tile_2_12",
       "target": "Tile_1_12"
     },
@@ -2964,6 +5512,12 @@
       "weight": 1.0,
       "source": "Tile_2_12",
       "target": "Tile_2_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_12",
+      "target": "Tile_2_13"
     },
     {
       "relation": "CONNECTS_TO",
@@ -2986,6 +5540,12 @@
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
+      "source": "Tile_3_12",
+      "target": "Tile_3_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
       "source": "Tile_4_12",
       "target": "Tile_3_12"
     },
@@ -3000,6 +5560,12 @@
       "weight": 1.0,
       "source": "Tile_4_12",
       "target": "Tile_4_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_12",
+      "target": "Tile_4_13"
     },
     {
       "relation": "CONNECTS_TO",
@@ -3022,92 +5588,194 @@
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_11_6",
-      "target": "Tile_11_7"
+      "source": "Tile_5_12",
+      "target": "Tile_5_13"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_11_6",
-      "target": "Tile_12_6"
+      "source": "Tile_6_8",
+      "target": "Tile_5_8"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_11_7",
-      "target": "Tile_11_6"
+      "source": "Tile_6_8",
+      "target": "Tile_7_8"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_11_7",
-      "target": "Tile_11_8"
+      "source": "Tile_6_8",
+      "target": "Tile_6_7"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_11_7",
-      "target": "Tile_12_7"
+      "source": "Tile_7_8",
+      "target": "Tile_6_8"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_11_8",
-      "target": "Tile_11_7"
+      "source": "Tile_7_8",
+      "target": "Tile_7_7"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_11_8",
-      "target": "Tile_12_8"
+      "source": "Tile_7_8",
+      "target": "Tile_8_8"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_12_6",
-      "target": "Tile_11_6"
+      "source": "Tile_8_6",
+      "target": "Tile_7_6"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_12_6",
-      "target": "Tile_12_7"
-    },
-    {
-      "relation": "CONTAINS",
-      "weight": 1.0,
-      "source": "Tile_12_7",
-      "target": "Trap_12_7"
+      "source": "Tile_8_6",
+      "target": "Tile_8_7"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_12_7",
-      "target": "Tile_11_7"
+      "source": "Tile_8_6",
+      "target": "Tile_8_5"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_12_7",
-      "target": "Tile_12_6"
+      "source": "Tile_8_7",
+      "target": "Tile_7_7"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_12_7",
-      "target": "Tile_12_8"
+      "source": "Tile_8_7",
+      "target": "Tile_8_6"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_12_8",
-      "target": "Tile_11_8"
+      "source": "Tile_8_7",
+      "target": "Tile_8_8"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_12_8",
-      "target": "Tile_12_7"
+      "source": "Tile_8_8",
+      "target": "Tile_7_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_8",
+      "target": "Tile_8_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_5_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_7_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_6_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_2",
+      "target": "Tile_6_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_2",
+      "target": "Tile_6_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_2",
+      "target": "Tile_7_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_2",
+      "target": "Tile_7_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_2",
+      "target": "Tile_8_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_1",
+      "target": "Tile_5_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_1",
+      "target": "Tile_7_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_1",
+      "target": "Tile_6_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_1",
+      "target": "Tile_6_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_1",
+      "target": "Tile_7_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_1",
+      "target": "Tile_8_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_3",
+      "target": "Tile_7_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_3",
+      "target": "Tile_8_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_3",
+      "target": "Tile_8_2"
     },
     {
       "relation": "CONNECTS_TO",
@@ -3119,13 +5787,13 @@
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_8_4",
-      "target": "Tile_8_5"
+      "target": "Tile_8_3"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_8_4",
-      "target": "Tile_8_3"
+      "target": "Tile_8_5"
     },
     {
       "relation": "CONNECTS_TO",
@@ -3172,6 +5840,1566 @@
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
+      "source": "Tile_10_5",
+      "target": "Tile_11_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_3",
+      "target": "Tile_11_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_3",
+      "target": "Tile_11_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_3",
+      "target": "Tile_12_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_4",
+      "target": "Tile_11_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_4",
+      "target": "Tile_11_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_4",
+      "target": "Tile_12_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_5",
+      "target": "Tile_10_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_5",
+      "target": "Tile_11_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_5",
+      "target": "Tile_11_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_5",
+      "target": "Tile_12_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_6",
+      "target": "Tile_11_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_6",
+      "target": "Tile_11_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_6",
+      "target": "Tile_12_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_7",
+      "target": "Tile_11_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_7",
+      "target": "Tile_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_7",
+      "target": "Tile_11_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_1",
+      "target": "Tile_7_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_1",
+      "target": "Tile_8_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_2",
+      "target": "Tile_7_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_2",
+      "target": "Tile_8_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_2",
+      "target": "Tile_8_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_1",
+      "target": "Tile_11_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_1",
+      "target": "Tile_12_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_2",
+      "target": "Tile_11_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_2",
+      "target": "Tile_11_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_2",
+      "target": "Tile_12_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_1",
+      "target": "Tile_11_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_1",
+      "target": "Tile_12_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_1",
+      "target": "Tile_13_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_2",
+      "target": "Tile_11_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_2",
+      "target": "Tile_12_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_2",
+      "target": "Tile_12_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_2",
+      "target": "Tile_13_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_3",
+      "target": "Tile_11_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_3",
+      "target": "Tile_12_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_3",
+      "target": "Tile_12_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_3",
+      "target": "Tile_13_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_4",
+      "target": "Tile_11_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_4",
+      "target": "Tile_12_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_4",
+      "target": "Tile_13_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_4",
+      "target": "Tile_12_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_5",
+      "target": "Tile_11_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_5",
+      "target": "Tile_13_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_5",
+      "target": "Tile_12_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_5",
+      "target": "Tile_12_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_6",
+      "target": "Tile_11_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_6",
+      "target": "Tile_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_6",
+      "target": "Tile_13_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_6",
+      "target": "Tile_12_5"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Trap_invisible_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Tile_11_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Tile_12_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Tile_13_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_7",
+      "target": "Tile_12_8"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_13_3",
+      "target": "Plate_gray_13_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_3",
+      "target": "Tile_12_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_3",
+      "target": "Tile_13_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_3",
+      "target": "Tile_14_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_3",
+      "target": "Tile_13_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_4",
+      "target": "Tile_12_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_4",
+      "target": "Tile_13_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_4",
+      "target": "Tile_14_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_4",
+      "target": "Tile_13_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_5",
+      "target": "Tile_12_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_5",
+      "target": "Tile_14_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_5",
+      "target": "Tile_13_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_5",
+      "target": "Tile_13_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_6",
+      "target": "Tile_12_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_6",
+      "target": "Tile_13_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_6",
+      "target": "Tile_14_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_6",
+      "target": "Tile_13_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_7",
+      "target": "Tile_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_7",
+      "target": "Tile_13_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_7",
+      "target": "Tile_14_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_7",
+      "target": "Tile_13_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_3",
+      "target": "Tile_13_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_3",
+      "target": "Tile_14_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_3",
+      "target": "Tile_15_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_3",
+      "target": "Tile_14_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_4",
+      "target": "Tile_13_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_4",
+      "target": "Tile_14_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_4",
+      "target": "Tile_14_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_4",
+      "target": "Tile_15_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_5",
+      "target": "Tile_14_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_5",
+      "target": "Tile_14_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_5",
+      "target": "Tile_15_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_5",
+      "target": "Tile_13_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_6",
+      "target": "Tile_13_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_6",
+      "target": "Tile_14_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_6",
+      "target": "Tile_14_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_6",
+      "target": "Tile_15_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_7",
+      "target": "Tile_13_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_7",
+      "target": "Tile_14_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_7",
+      "target": "Tile_15_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_7",
+      "target": "Tile_14_8"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_15_3",
+      "target": "Key_red_15_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_3",
+      "target": "Tile_14_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_3",
+      "target": "Tile_15_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_3",
+      "target": "Tile_15_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_3",
+      "target": "Tile_16_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_4",
+      "target": "Tile_14_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_4",
+      "target": "Tile_15_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_4",
+      "target": "Tile_15_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_4",
+      "target": "Tile_16_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_5",
+      "target": "Tile_14_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_5",
+      "target": "Tile_15_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_5",
+      "target": "Tile_15_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_5",
+      "target": "Tile_16_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_6",
+      "target": "Tile_14_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_6",
+      "target": "Tile_15_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_6",
+      "target": "Tile_15_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_6",
+      "target": "Tile_16_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_7",
+      "target": "Tile_14_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_7",
+      "target": "Tile_15_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_7",
+      "target": "Tile_16_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_7",
+      "target": "Tile_15_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_1",
+      "target": "Tile_12_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_1",
+      "target": "Tile_13_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_1",
+      "target": "Tile_14_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_2",
+      "target": "Tile_12_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_2",
+      "target": "Tile_13_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_2",
+      "target": "Tile_13_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_2",
+      "target": "Tile_14_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_1",
+      "target": "Tile_13_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_1",
+      "target": "Tile_15_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_1",
+      "target": "Tile_14_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_2",
+      "target": "Tile_13_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_2",
+      "target": "Tile_15_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_2",
+      "target": "Tile_14_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_2",
+      "target": "Tile_14_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_1",
+      "target": "Tile_14_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_1",
+      "target": "Tile_15_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_1",
+      "target": "Tile_16_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_2",
+      "target": "Tile_14_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_2",
+      "target": "Tile_15_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_2",
+      "target": "Tile_15_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_2",
+      "target": "Tile_16_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_1",
+      "target": "Tile_15_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_1",
+      "target": "Tile_16_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_1",
+      "target": "Tile_17_1"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_16_2",
+      "target": "Decoy_gold_16_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_2",
+      "target": "Tile_15_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_2",
+      "target": "Tile_16_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_2",
+      "target": "Tile_16_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_2",
+      "target": "Tile_17_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_3",
+      "target": "Tile_15_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_3",
+      "target": "Tile_16_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_3",
+      "target": "Tile_16_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_3",
+      "target": "Tile_17_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_4",
+      "target": "Tile_15_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_4",
+      "target": "Tile_16_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_4",
+      "target": "Tile_17_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_4",
+      "target": "Tile_16_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_1",
+      "target": "Tile_16_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_1",
+      "target": "Tile_17_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_1",
+      "target": "Tile_18_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_2",
+      "target": "Tile_16_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_2",
+      "target": "Tile_17_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_2",
+      "target": "Tile_17_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_2",
+      "target": "Tile_18_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_3",
+      "target": "Tile_16_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_3",
+      "target": "Tile_17_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_3",
+      "target": "Tile_17_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_3",
+      "target": "Tile_18_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_4",
+      "target": "Tile_16_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_4",
+      "target": "Tile_17_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_4",
+      "target": "Tile_18_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_4",
+      "target": "Tile_17_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_1",
+      "target": "Tile_17_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_1",
+      "target": "Tile_18_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_2",
+      "target": "Tile_17_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_2",
+      "target": "Tile_18_1"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_2",
+      "target": "Tile_18_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_3",
+      "target": "Tile_17_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_3",
+      "target": "Tile_18_2"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_3",
+      "target": "Tile_18_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_4",
+      "target": "Tile_17_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_4",
+      "target": "Tile_18_3"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_4",
+      "target": "Tile_18_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_5",
+      "target": "Tile_15_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_5",
+      "target": "Tile_17_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_5",
+      "target": "Tile_16_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_5",
+      "target": "Tile_16_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_6",
+      "target": "Tile_15_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_6",
+      "target": "Tile_17_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_6",
+      "target": "Tile_16_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_6",
+      "target": "Tile_16_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_5",
+      "target": "Tile_16_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_5",
+      "target": "Tile_18_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_5",
+      "target": "Tile_17_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_5",
+      "target": "Tile_17_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_6",
+      "target": "Tile_16_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_6",
+      "target": "Tile_18_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_6",
+      "target": "Tile_17_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_6",
+      "target": "Tile_17_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_5",
+      "target": "Tile_17_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_5",
+      "target": "Tile_18_4"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_5",
+      "target": "Tile_18_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_6",
+      "target": "Tile_17_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_6",
+      "target": "Tile_18_5"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_6",
+      "target": "Tile_18_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_7",
+      "target": "Tile_15_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_7",
+      "target": "Tile_17_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_7",
+      "target": "Tile_16_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_7",
+      "target": "Tile_16_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_7",
+      "target": "Tile_16_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_7",
+      "target": "Tile_18_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_7",
+      "target": "Tile_17_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_7",
+      "target": "Tile_17_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_7",
+      "target": "Tile_17_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_7",
+      "target": "Tile_18_6"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_7",
+      "target": "Tile_18_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_8",
+      "target": "Tile_16_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_8",
+      "target": "Tile_15_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_8",
+      "target": "Tile_14_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_8",
+      "target": "Tile_15_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_8",
+      "target": "Tile_17_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_8",
+      "target": "Tile_16_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_8",
+      "target": "Tile_16_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_8",
+      "target": "Tile_18_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_8",
+      "target": "Tile_17_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_8",
+      "target": "Tile_17_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_8",
+      "target": "Tile_18_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_11",
+      "target": "Tile_16_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_11",
+      "target": "Tile_15_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_11",
+      "target": "Tile_15_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_11",
+      "target": "Tile_17_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_11",
+      "target": "Tile_16_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_11",
+      "target": "Tile_16_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_11",
+      "target": "Tile_18_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_11",
+      "target": "Tile_17_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_11",
+      "target": "Tile_17_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_11",
+      "target": "Tile_18_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_12",
+      "target": "Tile_16_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_15_12",
+      "target": "Tile_15_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_12",
+      "target": "Tile_15_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_12",
+      "target": "Tile_17_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_16_12",
+      "target": "Tile_16_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_12",
+      "target": "Tile_16_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_12",
+      "target": "Tile_18_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_17_12",
+      "target": "Tile_17_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_12",
+      "target": "Tile_17_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_18_12",
+      "target": "Tile_18_11"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_8",
+      "target": "Tile_14_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_8",
+      "target": "Tile_13_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_13_8",
+      "target": "Tile_12_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_8",
+      "target": "Tile_13_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_8",
+      "target": "Tile_15_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_8",
+      "target": "Tile_14_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_8",
+      "target": "Tile_14_9"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_14_9",
+      "target": "Door_blue_14_9"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_9",
+      "target": "Tile_14_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_9",
+      "target": "Tile_14_10"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_14_10",
+      "target": "Tile_14_9"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_8",
+      "target": "Tile_13_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_8",
+      "target": "Tile_12_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_8",
+      "target": "Tile_11_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_8",
+      "target": "Tile_12_8"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_8",
+      "target": "Tile_11_7"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
       "source": "Tile_6_11",
       "target": "Tile_5_11"
     },
@@ -3179,13 +7407,13 @@
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_6_11",
-      "target": "Tile_7_11"
+      "target": "Tile_6_12"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_6_11",
-      "target": "Tile_6_12"
+      "target": "Tile_7_11"
     },
     {
       "relation": "CONNECTS_TO",
@@ -3197,13 +7425,391 @@
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_6_12",
-      "target": "Tile_7_12"
+      "target": "Tile_6_11"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
       "source": "Tile_6_12",
-      "target": "Tile_6_11"
+      "target": "Tile_6_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_12",
+      "target": "Tile_7_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_13",
+      "target": "Tile_3_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_13",
+      "target": "Tile_2_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_13",
+      "target": "Tile_2_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_13",
+      "target": "Tile_1_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_13",
+      "target": "Tile_2_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_13",
+      "target": "Tile_4_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_13",
+      "target": "Tile_3_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_13",
+      "target": "Tile_3_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_13",
+      "target": "Tile_3_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_13",
+      "target": "Tile_5_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_13",
+      "target": "Tile_4_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_13",
+      "target": "Tile_4_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_13",
+      "target": "Tile_4_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_13",
+      "target": "Tile_6_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_13",
+      "target": "Tile_5_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_13",
+      "target": "Tile_5_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_13",
+      "target": "Tile_5_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_13",
+      "target": "Tile_6_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_13",
+      "target": "Tile_6_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_13",
+      "target": "Tile_7_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_14",
+      "target": "Tile_3_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_14",
+      "target": "Tile_2_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_14",
+      "target": "Tile_2_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_14",
+      "target": "Tile_1_14"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_3_14",
+      "target": "Trap_invisible_3_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_14",
+      "target": "Tile_2_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_14",
+      "target": "Tile_4_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_14",
+      "target": "Tile_3_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_14",
+      "target": "Tile_3_15"
+    },
+    {
+      "relation": "CAUSES_DAMAGE",
+      "weight": 1.0,
+      "source": "Tile_3_14",
+      "target": "DamageRule_UNMAPPED_TRAP_3_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_14",
+      "target": "Tile_3_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_14",
+      "target": "Tile_5_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_14",
+      "target": "Tile_4_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_14",
+      "target": "Tile_4_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_14",
+      "target": "Tile_4_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_14",
+      "target": "Tile_6_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_14",
+      "target": "Tile_5_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_14",
+      "target": "Tile_5_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_14",
+      "target": "Tile_5_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_14",
+      "target": "Tile_6_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_14",
+      "target": "Tile_6_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_14",
+      "target": "Tile_7_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_15",
+      "target": "Tile_3_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_15",
+      "target": "Tile_2_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_15",
+      "target": "Tile_2_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_15",
+      "target": "Tile_1_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_15",
+      "target": "Tile_2_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_15",
+      "target": "Tile_4_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_15",
+      "target": "Tile_3_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_15",
+      "target": "Tile_3_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_15",
+      "target": "Tile_3_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_15",
+      "target": "Tile_5_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_15",
+      "target": "Tile_4_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_15",
+      "target": "Tile_4_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_15",
+      "target": "Tile_4_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_15",
+      "target": "Tile_6_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_15",
+      "target": "Tile_5_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_15",
+      "target": "Tile_5_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_15",
+      "target": "Tile_5_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_15",
+      "target": "Tile_6_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_15",
+      "target": "Tile_7_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_15",
+      "target": "Tile_6_16"
     },
     {
       "relation": "CONNECTS_TO",
@@ -3244,6 +7850,36 @@
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
+      "source": "Tile_7_12",
+      "target": "Tile_7_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_13",
+      "target": "Tile_6_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_13",
+      "target": "Tile_8_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_13",
+      "target": "Tile_7_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_13",
+      "target": "Tile_7_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
       "source": "Tile_8_11",
       "target": "Tile_7_11"
     },
@@ -3268,14 +7904,818 @@
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_8_3",
-      "target": "Tile_7_3"
+      "source": "Tile_8_12",
+      "target": "Tile_8_13"
     },
     {
       "relation": "CONNECTS_TO",
       "weight": 1.0,
-      "source": "Tile_8_3",
-      "target": "Tile_8_4"
+      "source": "Tile_8_13",
+      "target": "Tile_7_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_13",
+      "target": "Tile_8_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_13",
+      "target": "Tile_8_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_14",
+      "target": "Tile_6_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_14",
+      "target": "Tile_8_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_14",
+      "target": "Tile_7_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_14",
+      "target": "Tile_7_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_15",
+      "target": "Tile_6_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_15",
+      "target": "Tile_8_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_15",
+      "target": "Tile_7_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_15",
+      "target": "Tile_7_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_14",
+      "target": "Tile_7_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_14",
+      "target": "Tile_8_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_14",
+      "target": "Tile_8_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_15",
+      "target": "Tile_7_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_15",
+      "target": "Tile_8_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_15",
+      "target": "Tile_8_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_16",
+      "target": "Tile_5_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_16",
+      "target": "Tile_4_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_16",
+      "target": "Tile_4_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_16",
+      "target": "Tile_3_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_16",
+      "target": "Tile_4_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_16",
+      "target": "Tile_6_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_16",
+      "target": "Tile_5_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_16",
+      "target": "Tile_5_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_16",
+      "target": "Tile_5_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_16",
+      "target": "Tile_7_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_16",
+      "target": "Tile_6_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_16",
+      "target": "Tile_6_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_16",
+      "target": "Tile_6_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_16",
+      "target": "Tile_8_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_16",
+      "target": "Tile_7_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_16",
+      "target": "Tile_7_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_16",
+      "target": "Tile_7_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_16",
+      "target": "Tile_8_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_16",
+      "target": "Tile_8_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_17",
+      "target": "Tile_5_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_17",
+      "target": "Tile_4_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_17",
+      "target": "Tile_4_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_17",
+      "target": "Tile_3_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_17",
+      "target": "Tile_4_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_17",
+      "target": "Tile_6_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_17",
+      "target": "Tile_5_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_17",
+      "target": "Tile_5_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_17",
+      "target": "Tile_5_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_17",
+      "target": "Tile_7_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_17",
+      "target": "Tile_6_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_17",
+      "target": "Tile_6_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_17",
+      "target": "Tile_6_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_17",
+      "target": "Tile_8_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_17",
+      "target": "Tile_7_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_17",
+      "target": "Tile_7_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_17",
+      "target": "Tile_7_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_17",
+      "target": "Tile_8_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_17",
+      "target": "Tile_8_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_18",
+      "target": "Tile_5_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_18",
+      "target": "Tile_4_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_4_18",
+      "target": "Tile_3_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_18",
+      "target": "Tile_4_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_18",
+      "target": "Tile_6_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_5_18",
+      "target": "Tile_5_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_18",
+      "target": "Tile_5_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_18",
+      "target": "Tile_7_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_6_18",
+      "target": "Tile_6_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_18",
+      "target": "Tile_6_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_18",
+      "target": "Tile_8_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_7_18",
+      "target": "Tile_7_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_18",
+      "target": "Tile_7_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_8_18",
+      "target": "Tile_8_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_12",
+      "target": "Tile_11_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_12",
+      "target": "Tile_12_12"
+    },
+    {
+      "relation": "CONTAINS",
+      "weight": 1.0,
+      "source": "Tile_11_13",
+      "target": "Hazard_orange_11_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_13",
+      "target": "Tile_11_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_13",
+      "target": "Tile_11_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_13",
+      "target": "Tile_12_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_14",
+      "target": "Tile_11_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_14",
+      "target": "Tile_11_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_14",
+      "target": "Tile_12_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_15",
+      "target": "Tile_11_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_15",
+      "target": "Tile_11_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_15",
+      "target": "Tile_12_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_16",
+      "target": "Tile_11_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_11_16",
+      "target": "Tile_12_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_12",
+      "target": "Tile_11_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_12",
+      "target": "Tile_12_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_13",
+      "target": "Tile_11_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_13",
+      "target": "Tile_12_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_13",
+      "target": "Tile_12_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_14",
+      "target": "Tile_11_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_14",
+      "target": "Tile_12_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_14",
+      "target": "Tile_12_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_15",
+      "target": "Tile_11_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_15",
+      "target": "Tile_12_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_15",
+      "target": "Tile_12_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_16",
+      "target": "Tile_11_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_12_16",
+      "target": "Tile_12_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_16",
+      "target": "Tile_4_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_16",
+      "target": "Tile_3_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_16",
+      "target": "Tile_3_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_16",
+      "target": "Tile_2_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_17",
+      "target": "Tile_4_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_17",
+      "target": "Tile_3_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_17",
+      "target": "Tile_3_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_17",
+      "target": "Tile_2_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_18",
+      "target": "Tile_4_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_18",
+      "target": "Tile_3_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_3_18",
+      "target": "Tile_2_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_16",
+      "target": "Tile_3_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_16",
+      "target": "Tile_2_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_16",
+      "target": "Tile_2_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_16",
+      "target": "Tile_1_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_17",
+      "target": "Tile_3_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_17",
+      "target": "Tile_2_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_17",
+      "target": "Tile_2_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_17",
+      "target": "Tile_1_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_18",
+      "target": "Tile_3_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_18",
+      "target": "Tile_2_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_2_18",
+      "target": "Tile_1_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_15",
+      "target": "Tile_2_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_15",
+      "target": "Tile_1_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_15",
+      "target": "Tile_1_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_16",
+      "target": "Tile_2_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_16",
+      "target": "Tile_1_15"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_16",
+      "target": "Tile_1_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_17",
+      "target": "Tile_2_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_17",
+      "target": "Tile_1_16"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_17",
+      "target": "Tile_1_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_18",
+      "target": "Tile_2_18"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_18",
+      "target": "Tile_1_17"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_13",
+      "target": "Tile_2_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_13",
+      "target": "Tile_1_12"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_13",
+      "target": "Tile_1_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_14",
+      "target": "Tile_2_14"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_14",
+      "target": "Tile_1_13"
+    },
+    {
+      "relation": "CONNECTS_TO",
+      "weight": 1.0,
+      "source": "Tile_1_14",
+      "target": "Tile_1_15"
     }
   ]
 }

@@ -321,6 +321,7 @@ def update_knowledge_from_obs(
     matrix: CoreKnowledgeMatrix,
     obs: Dict[str, Any],
     prev_pos: Optional[Tuple[int, int]] = None,
+    env: Optional[CustomRPGEnv] = None,
 ) -> None:
     """Synchronise the knowledge graph with the latest observation.
 
@@ -367,13 +368,28 @@ def update_knowledge_from_obs(
             tile_name = tile_type.name  # e.g. "EMPTY", "WALL", etc.
             matrix.add_spatial_node(r, c, tile_name, explored=True)
 
+            # Synchronise actual door lock state from environment
+            if tile_type == TileType.DOOR and env is not None:
+                ent = env.unwrapped._entities.get((r, c))
+                if ent is not None and not ent.is_locked:
+                    matrix.unlock_door_node((r, c))
+
             # Link entity nodes for notable tile types
             if tile_val in _TILE_ENTITY_TYPE:
                 prefix = _TILE_ENTITY_PREFIX[tile_val]
-                entity_id = f"{prefix}_{r}_{c}"
+                
+                # Retrieve actual entity to get color
+                ent = None
+                if env is not None:
+                    ent = env.unwrapped._entities.get((r, c))
+                
+                color_suffix = f"_{ent.color}" if ent and getattr(ent, "color", None) else ""
+                entity_id = f"{prefix}{color_suffix}_{r}_{c}"
                 entity_type = _TILE_ENTITY_TYPE[tile_val]
+                
                 matrix.add_entity_node(entity_id, entity_type, {
                     "location": f"({r},{c})",
+                    "color": ent.color if ent and getattr(ent, "color", None) else None
                 })
                 host_tile = f"Tile_{r}_{c}"
                 matrix.add_typed_edge(host_tile, entity_id, "CONTAINS")
@@ -423,7 +439,7 @@ def run_autonomous_loop(
     inspector: WebMindInspector,
     console: Console,
     max_steps: int = 200,
-    render_dashboard: bool = True,
+    render_dashboard: bool = False,
     step_delay: float = 0.25,
 ) -> Dict[str, Any]:
     """Fully autonomous cognitive execution loop.
@@ -437,7 +453,7 @@ def run_autonomous_loop(
     """
     obs, info = env.reset(seed=42)
     ps = obs["player_state"]
-    update_knowledge_from_obs(matrix, obs, prev_pos=None)
+    update_knowledge_from_obs(matrix, obs, prev_pos=None, env=env)
 
     # ── Telemetry counters ──
     step_count = 0
@@ -448,6 +464,7 @@ def run_autonomous_loop(
     current_weight = 1.0
     engine_state = "AUTONOMOUS"
     action_queue: List[str] = []
+    last_action_name: str = ""
     prev_hp: int = ps["health"]
 
     t_start = time.perf_counter()
@@ -499,7 +516,10 @@ def run_autonomous_loop(
                 )
                 rules_synthesized += new_rules
                 reflection_cycles += 1
-                action_queue.clear()  # Invalidate stale plan
+                # Preserve queue if last dispatched action was TOGGLE_INTERACT
+                # (the next queued MOVE_FORWARD must execute to step through)
+                if last_action_name != "TOGGLE_INTERACT":
+                    action_queue.clear()  # Invalidate stale plan
 
             # ── Step 3: Plan maintenance ──
             if not action_queue:
@@ -508,17 +528,22 @@ def run_autonomous_loop(
                 inventory = ps.get("inventory", [])
                 pos = tuple(ps["position"])
 
+                # DEBUG: Print Tile_4_9 state if we are close
+                if pos == (4, 8):
+                    t49 = matrix.graph.nodes.get("Tile_4_9", {})
+                    print(f"DEBUG {step_count}: Tile_4_9 = {t49}")
+
                 goal_stack = goal_engine.synthesize_goal_stack(pos, inventory)
                 if goal_stack:
                     action_queue = goal_engine.compile_execution_plan(
                         goal_stack, pos, current_dir, inventory
                     )
                     if action_queue:
-                        goals_str = ", ".join(g.goal_type.name for g in goal_stack)
                         dash.add_log(
-                            f"[bold magenta]📋 Plan:[/bold magenta] {goals_str} "
+                            f"🗺️ [PLAN] {', '.join(g.goal_type.name for g in goal_stack)} "
                             f"({len(action_queue)} actions)"
                         )
+                    print(f"DEBUG {step_count}: Planned {', '.join(g.goal_type.name for g in goal_stack)} -> next action: {action_queue[0] if action_queue else 'None'}")
                 
             # ── Step 4: Dispatch next action with safety gate ──
             if not action_queue:
@@ -529,6 +554,7 @@ def run_autonomous_loop(
             action = _ACTION_NAME_MAP.get(act_name)
             if action is None:
                 continue
+            last_action_name = act_name
 
             # Z3 safety interception for forward movement
             if action == Action.MOVE_FORWARD:
@@ -544,7 +570,15 @@ def run_autonomous_loop(
                     cur_dir_vec = _DIR_TO_VEC[Direction(ps["direction"])]
                     target_x = prev_pos[0] + cur_dir_vec[0]
                     target_y = prev_pos[1] + cur_dir_vec[1]
-                    goal_engine.register_blocked_node((target_x, target_y))
+                    
+                    if state_context.get("is_door"):
+                        # Agent hit an unexpectedly locked door.
+                        # Relock it in the graph so the planner synthesizes FETCH_KEY.
+                        node_id = f"Tile_{target_x}_{target_y}"
+                        if node_id in matrix.graph:
+                            matrix.graph.nodes[node_id]["is_locked"] = True
+                    else:
+                        goal_engine.register_blocked_node((target_x, target_y))
                     
                     action_queue.clear()  # Purge invalid plan
                     dash.add_log(
@@ -572,7 +606,7 @@ def run_autonomous_loop(
                 tile = state_context.get("target_tile", "EMPTY")
                 fast_memory.reinforce_hebbian(tile, action.name, reward)
 
-            update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos)
+            update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos, env=env)
 
             # ── Step 5b: Immediate HP-drop reflection ──
             if hp_after_step < hp_before_step:
@@ -648,7 +682,7 @@ def run_manual_loop(
     current_weight = 1.0
 
     # Initial knowledge grounding
-    update_knowledge_from_obs(matrix, obs, prev_pos=None)
+    update_knowledge_from_obs(matrix, obs, prev_pos=None, env=env)
 
     summary = matrix.get_graph_summary()
     dash.add_log("[bold cyan]Engine init[/bold cyan] — spawn (1,1) EAST")
@@ -742,7 +776,7 @@ def run_manual_loop(
                         trigger_sleep_consolidation(fast_memory, matrix, dash, current_novelty)
 
                     # ── Update knowledge graph ──
-                    update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos)
+                    update_knowledge_from_obs(matrix, obs, prev_pos=prev_pos, env=env)
 
                     # ── Build log entry ──
                     pos = ps["position"]

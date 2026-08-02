@@ -107,14 +107,37 @@ class CoreKnowledgeMatrix:
             The unique node identifier ``Tile_{x}_{y}``.
         """
         node_id = f"Tile_{x}_{y}"
+        
+        # Preserve unlocked state for doors already in the graph
+        default_locked = (tile_type == "DOOR")
+        if node_id in self.graph:
+            existing = self.graph.nodes[node_id]
+            if existing.get("tile_type") == "DOOR" and tile_type == "DOOR":
+                default_locked = existing.get("is_locked", True)
+        
         self.graph.add_node(
             node_id,
             node_type="SPATIAL",
             pos=(x, y),
             tile_type=tile_type,
             explored=explored,
+            is_locked=default_locked,
+            traversable=(tile_type != "WALL" and tile_type != "HAZARD"),
         )
         return node_id
+
+    def unlock_door_node(self, coordinate: Tuple[int, int]) -> None:
+        """Dynamically unlock a door and update its A* routing weights."""
+        node_id = f"Tile_{coordinate[0]}_{coordinate[1]}"
+        if node_id in self.graph:
+            self.graph.nodes[node_id]["is_locked"] = False
+            self.graph.nodes[node_id]["traversable"] = True
+            
+            # Reset edge weights for all incoming and outgoing edges
+            for u, v, data in self.graph.edges(node_id, data=True):
+                data["weight"] = 1.0
+            for u, v, data in self.graph.in_edges(node_id, data=True):
+                data["weight"] = 1.0
 
     # ────────────────────────────────────────────
     #  Entity node management
@@ -273,12 +296,28 @@ class CoreKnowledgeMatrix:
                 return False
                 
             tile = data.get("tile_type", "UNKNOWN")
-            if tile == "WALL":
+            if tile == "WALL" or tile == "HAZARD":
                 return False
-            if tile == "HAZARD":
-                return False
-            if tile == "DOOR" and not has_key:
-                return False
+            if tile == "DOOR":
+                if not data.get("is_locked", True):
+                    pass  # Already unlocked
+                    return True
+                elif "key_simulated" in known_inventory:
+                    return True
+                else:
+                    # Check for matching key color
+                    door_color = None
+                    for _, target, edge_data in self.graph.edges(node, data=True):
+                        if edge_data.get("relation") == "CONTAINS" and target.startswith("Door_"):
+                            color_part = target.split("_")[1].lower()
+                            if not color_part.isdigit():
+                                door_color = color_part
+                                break
+                    if door_color:
+                        required_key = f"key_{door_color}"
+                        if any(required_key == k.lower() for k in known_inventory):
+                            return True
+                    return False
             return True
 
         # Build subgraph view containing only traversable spatial nodes
